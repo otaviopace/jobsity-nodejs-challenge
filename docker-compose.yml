@@ -10,3 +10,18 @@ services:
     volumes:
       - ./backend:/backend
       - /backend/node_modules
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
+  postgres:
+    image: postgres:9.6-alpine
+    ports:
+      - 5432
+    env_file: ./backend/.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
