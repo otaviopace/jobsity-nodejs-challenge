@@ -11,7 +11,8 @@ services:
       - ./backend:/backend
       - /backend/node_modules
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     links:
       - postgres
 
@@ -25,3 +26,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  migrate:
+    build: ./backend
+    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/database.js --migrations-path src/database/migrations/
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/backend
+      - /backend/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy

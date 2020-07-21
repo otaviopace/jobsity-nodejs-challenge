@@ -1,10 +1,10 @@
-const dotenv = require('dotenv')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const setupDotenv = require('./config')
 const database = require('./database')
 
-dotenv.config()
+setupDotenv()
 
 const app = express()
 
