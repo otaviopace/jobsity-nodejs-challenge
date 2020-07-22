@@ -9,7 +9,6 @@ services:
     env_file: ./backend/.env
     volumes:
       - ./backend:/backend
-      - /backend/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -27,13 +26,22 @@ services:
       timeout: 5s
       retries: 5
 
-  migrate:
+  migration-base:
     build: ./backend
-    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/database.js --migrations-path src/database/migrations/
     env_file: ./backend/.env
     volumes:
       - ./backend:/backend
-      - /backend/node_modules
+
+  migrate-up:
+    extends: migration-base
+    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/database.js --migrations-path src/database/migrations/
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  migrate-down:
+    extends: migration-base
+    entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/database.js --migrations-path src/database/migrations/
     depends_on:
       postgres:
         condition: service_healthy

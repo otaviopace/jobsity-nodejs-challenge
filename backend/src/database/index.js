@@ -2,8 +2,35 @@ const Promise = require('bluebird')
 const Sequelize = require('sequelize')
 const config = require('../config/database')
 const DatabaseError = require('../errors/database')
+const models = require('./models')
 
-const sequelize = new Sequelize(config)
+const defaults = {
+  define: {
+    paranoid: true,
+    underscored: true,
+  },
+}
+
+const createDatabase = () => {
+  const sequelize = new Sequelize({ ...defaults, ...config })
+
+  const createModelInstance = (model) => ({
+    model,
+    instance: model.create(sequelize)
+  })
+
+  const associateModels = ({ model, instance }) => {
+    if (model.associate) {
+      model.associate(instance, sequelize.models)
+    }
+  }
+
+  Object.values(models)
+    .map(createModelInstance)
+    .forEach(associateModels)
+
+  return sequelize
+}
 
 const ensureDbIsConnected = (db) => {
   const MAX_RETRIES = 10
@@ -12,7 +39,6 @@ const ensureDbIsConnected = (db) => {
   const tryToConnect = (retry = 1) =>
     db.authenticate()
       .catch((err) => {
-        console.log('tried:', retry)
         if (retry < MAX_RETRIES) {
           return Promise.delay(RETRY_TIMEOUT)
             .then(() => tryToConnect(retry + 1))
@@ -24,7 +50,13 @@ const ensureDbIsConnected = (db) => {
   return Promise.resolve(tryToConnect())
 }
 
+const connectToDatabase = () =>
+  Promise.resolve(createDatabase())
+    .tap(ensureDbIsConnected)
+    .tap(db => db.sync())
+
 module.exports = {
-  sequelize,
+  connectToDatabase,
+  createDatabase,
   ensureDbIsConnected,
 }

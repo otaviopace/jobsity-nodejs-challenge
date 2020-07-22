@@ -7,9 +7,12 @@ run-backend:
 start-db:
 	@docker-compose up -d postgres
 
-migrate-db:
-	@docker-compose up migrate
+migrate-up:
+	@docker-compose up migrate-up
 
-setup-db: start-db migrate-db
+migrate-down:
+	@docker-compose up migrate-down
 
-.PHONY: build-backend run-backend start-db setup-db migrate-db
+setup-db: start-db migrate-up
+
+.PHONY: build-backend run-backend start-db setup-db migrate-up migrate-down
