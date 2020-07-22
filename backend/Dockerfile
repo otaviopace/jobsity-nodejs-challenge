@@ -6,4 +6,8 @@ COPY . .
 
 RUN npm install
 
-EXPOSE 3000
+# for health_check, it should be removed from
+# production builds via docker multistage
+RUN apk --no-cache add curl
+
+EXPOSE 4000

@@ -5,8 +5,13 @@ services:
     build: ./backend
     entrypoint: node src/index.js
     ports:
-      - "3000:3000"
+      - "4000:4000"
     env_file: ./backend/.env
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:4000/health_check"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - ./backend:/backend
     depends_on:
@@ -45,3 +50,16 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    links:
+      - backend

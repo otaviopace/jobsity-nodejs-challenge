@@ -39,11 +39,12 @@ const authMiddleware = (req, res, next) => {
   }
 }
 
+app.get('/health_check',  (req, res) => res.sendStatus(200))
 app.get('/', authMiddleware, (req, res) => res.sendStatus(200))
 app.post('/', authMiddleware, (req, res) => res.status(200).send(req.body))
 
 const startServer = application =>
-  application.listen(process.env.PORT || 3000)
+  application.listen(process.env.PORT || 4000)
 
 const start = () => Promise.resolve((async () => {
   const db = await connectToDatabase()
