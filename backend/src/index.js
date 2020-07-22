@@ -3,6 +3,7 @@ const passport = require('passport')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const bcrypt = require('bcryptjs')
 const setupDotenv = require('./config')
 const setupGracefulShutdown = require('./shutdown')
 const { connectToDatabase } = require('./database')
@@ -24,6 +25,28 @@ const startServer = application =>
 const start = () => Promise.resolve((async () => {
   const db = await connectToDatabase()
   console.log('success on database connection')
+
+  app.post('/users', async (req, res) => {
+    const username = req.body.username
+    const existingUser = await db.models.User.findOne({ where: {username} })
+
+    if (existingUser) {
+      return res.status(400).send({ errors: [{ message: 'username already exists' }] })
+    }
+
+    const salt = await bcrypt.genSalt(10)
+
+    const password_hash = await bcrypt.hash(req.body.password, salt)
+
+    const user = await db.models.User.create({
+      username,
+      password_hash,
+    })
+
+    delete user.dataValues.password_hash
+
+    return res.status(201).send(user)
+  })
 
   const server = startServer(app)
   console.log('server started listening')
