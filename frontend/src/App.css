@@ -1,0 +1,12 @@
+label {
+    display: table-cell;
+    text-align: right;
+}
+
+input {
+  display: table-cell;
+}
+
+.default-left-padding {
+  padding-left: 10px;
+}
