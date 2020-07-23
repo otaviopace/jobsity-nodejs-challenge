@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { getLocalSessionToken, logout } from '../AuthService'
 
-const  Navbar = () => {
+const  Home = () => {
   const location = useLocation()
 
   return (
@@ -73,4 +73,4 @@ const  Navbar = () => {
   )
 }
 
-export default Navbar
+export default Home
