@@ -15,16 +15,13 @@ const PrivateRoute = ({ component, ...options }) => {
   return <Route {...options} component={finalComponent} />
 }
 
-function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Route exact path="/" component={Landing} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/login" component={Login} />
-      <PrivateRoute exact path="/chat" component={Chat} />
-    </Router>
-  )
-}
+const App = () =>
+  <Router>
+    <Navbar />
+    <Route exact path="/" component={Landing} />
+    <Route exact path="/register" component={Register} />
+    <Route exact path="/login" component={Login} />
+    <PrivateRoute exact path="/chat" component={Chat} />
+  </Router>
 
 export default App

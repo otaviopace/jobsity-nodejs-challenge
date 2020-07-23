@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { createSession } from '../AuthService'
 
-function Login({ history }) {
+const Login = ({ history }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState('')

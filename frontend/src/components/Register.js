@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { registerUser } from '../AuthService'
 
-function Register() {
+const Register = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmationPassword, setConfirmationPassword] = useState('')

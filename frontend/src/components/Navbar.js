@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { getLocalSessionToken, logout } from '../AuthService'
 
-function Navbar() {
+const  Navbar = () => {
   const location = useLocation()
 
   return (
