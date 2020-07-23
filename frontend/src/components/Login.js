@@ -1,12 +1,25 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import { createSession } from '../AuthService'
 
-const handleSubmit = event =>
-  event.preventDefault()
-
-function Login() {
+function Login({ history }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    return createSession({ username, password })
+      .then(() => {
+        console.log('login good')
+        history.push('/chat')
+      })
+      .catch((error) => {
+        console.log('login error :(', error)
+        setErrorMsg(error.message)
+      })
+  }
 
   return (
     <div className="default-left-padding">
@@ -16,6 +29,7 @@ function Login() {
           Don't have an account? <Link to="/register">Register</Link>
         </p>
       </div>
+      {errorMsg ? (<span style={{ backgroundColor: "hsl(14, 100%, 53%)" }}>{errorMsg}</span>) : null}
       <form noValidate onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username: </label>
@@ -53,4 +67,4 @@ function Login() {
   )
 }
 
-export default Login
+export default withRouter(Login)
