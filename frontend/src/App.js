@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import Navbar from './components/Navbar'
 import Home from './components/Home'
-import Landing from './components/Landing'
 import Register from './components/Register'
 import Login from './components/Login'
 import Chat from './components/Chat'
@@ -17,8 +17,8 @@ const PrivateRoute = ({ component, ...options }) => {
 
 const App = () =>
   <Router>
-    <Home />
-    <Route exact path="/" component={Landing} />
+    <Navbar />
+    <Route exact path="/" component={Home} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/login" component={Login} />
     <PrivateRoute exact path="/chat" component={Chat} />

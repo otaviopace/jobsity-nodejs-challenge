@@ -1,8 +1,25 @@
-export const storeUsername = body =>
-  localStorage.setItem('username', body.username)
+import jwtDecode from 'jwt-decode'
 
-export const storeSession = body =>
-  localStorage.setItem('session-token', body.token)
+export const storeId = id =>
+  localStorage.setItem('id', id)
+
+export const storeUsername = username =>
+  localStorage.setItem('username', username)
+
+export const storeSession = sessionToken =>
+  localStorage.setItem('session-token', sessionToken)
+
+export const decodeAndStoreSession = body => {
+  storeSession(body.token)
+
+  const { id, username } = jwtDecode(body.token)
+
+  storeId(id)
+  storeUsername(username)
+}
+
+export const getLocalId = () =>
+  localStorage.getItem('id')
 
 export const getLocalUsername = () =>
   localStorage.getItem('usename')
@@ -11,8 +28,9 @@ export const getLocalSessionToken = () =>
   localStorage.getItem('session-token')
 
 export const logout = () => {
-  localStorage.removeItem('username')
   localStorage.removeItem('session-token')
+  localStorage.removeItem('username')
+  localStorage.removeItem('id')
 }
 
 const BASE_URL = 'http://localhost:4000' // should change on deploy env
@@ -42,8 +60,7 @@ export const requestServer = (route, method, body = {}) =>
 
 export const registerUser = body =>
   requestServer('/users', 'POST', body)
-    .then(storeUsername)
 
 export const createSession = body =>
   requestServer('/sessions', 'POST', body)
-    .then(storeSession)
+    .then(decodeAndStoreSession)
