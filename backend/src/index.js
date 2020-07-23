@@ -1,9 +1,11 @@
+const { createServer } = require('http')
 const Promise = require('bluebird')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const socketIO = require('socket.io')
 const setupDotenv = require('./config')
 const setupGracefulShutdown = require('./shutdown')
 const { connectToDatabase } = require('./database')
@@ -43,8 +45,8 @@ app.get('/health_check',  (req, res) => res.sendStatus(200))
 app.get('/', authMiddleware, (req, res) => res.sendStatus(200))
 app.post('/', authMiddleware, (req, res) => res.status(200).send(req.body))
 
-const startServer = application =>
-  application.listen(process.env.PORT || 4000)
+const startServer = server =>
+  server.listen(process.env.PORT || 4000)
 
 const start = () => Promise.resolve((async () => {
   const db = await connectToDatabase()
@@ -105,8 +107,26 @@ const start = () => Promise.resolve((async () => {
     })
   })
 
-  const server = startServer(app)
+  const server = createServer(app)
+
+  const io = socketIO(server)
+
+  io.on('connection', socket => {
+    console.log('a user connected')
+
+    socket.on('chat-message', message => {
+      console.log('a chat message:', message)
+      io.emit('chat-message', message)
+    })
+
+    socket.on('disconnect', () => {
+      console.log('user disconnected', i)
+    })
+  })
+
+  startServer(server)
   console.log('server started listening')
+
   setupGracefulShutdown(server)
 })())
 

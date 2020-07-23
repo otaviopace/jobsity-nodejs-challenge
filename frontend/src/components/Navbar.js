@@ -13,7 +13,7 @@ const Navbar = () => {
           location.pathname !== '/'
             ?
               <Link to="/">
-                Navbar
+                Home
               </Link>
             :
               <React.Fragment></React.Fragment>

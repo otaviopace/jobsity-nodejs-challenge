@@ -33,7 +33,7 @@ export const logout = () => {
   localStorage.removeItem('id')
 }
 
-const BASE_URL = 'http://localhost:4000' // should change on deploy env
+export const BASE_URL = 'http://localhost:4000' // should change on deploy env
 
 export const buildUrl = route => `${BASE_URL}${route}`
 
