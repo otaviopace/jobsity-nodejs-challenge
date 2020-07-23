@@ -22,7 +22,7 @@ export const getLocalId = () =>
   localStorage.getItem('id')
 
 export const getLocalUsername = () =>
-  localStorage.getItem('usename')
+  localStorage.getItem('username')
 
 export const getLocalSessionToken = () =>
   localStorage.getItem('session-token')

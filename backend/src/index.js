@@ -114,13 +114,13 @@ const start = () => Promise.resolve((async () => {
   io.on('connection', socket => {
     console.log('a user connected')
 
-    socket.on('chat-message', message => {
-      console.log('a chat message:', message)
-      io.emit('chat-message', message)
+    socket.on('chat-message', data => {
+      console.log(`user '${data.username}' messaged '${data.text}' on chat`)
+      io.emit('chat-message', data)
     })
 
     socket.on('disconnect', () => {
-      console.log('user disconnected', i)
+      console.log('user disconnected')
     })
   })
 
