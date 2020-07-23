@@ -20,14 +20,8 @@ const Register = () => {
     }
 
     return registerUser({ username, password })
-      .then((body) => {
-        setSuccessMsg('Account created successfully')
-        console.log('register good')
-      })
-      .catch((error) => {
-        console.log('register error :(', error)
-        setErrorMsg(error.message)
-      })
+      .then(body => setSuccessMsg('Account created successfully'))
+      .catch(error => setErrorMsg(error.message))
   }
 
   return (

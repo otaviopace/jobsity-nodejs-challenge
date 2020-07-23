@@ -11,14 +11,8 @@ const Login = ({ history }) => {
     event.preventDefault()
 
     return createSession({ username, password })
-      .then(() => {
-        console.log('login good')
-        history.push('/chat')
-      })
-      .catch((error) => {
-        console.log('login error :(', error)
-        setErrorMsg(error.message)
-      })
+      .then(() => history.push('/chat'))
+      .catch(error => setErrorMsg(error.message))
   }
 
   return (
