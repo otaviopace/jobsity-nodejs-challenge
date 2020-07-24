@@ -9,8 +9,16 @@ const setupRoutes = (app, repository) => {
   app.get('/', middlewares.authentication, (req, res) => res.sendStatus(200))
   app.post('/', middlewares.authentication, (req, res) => res.status(200).send(req.body))
 
-  app.post('/users', middlewares.validation(userSchema.create), userController.create(repository))
-  app.post('/sessions', middlewares.validation(sessionSchema.create), sessionController.create(repository))
+  app.post(
+    '/users',
+    middlewares.validation(userSchema.create),
+    middlewares.wrapAsync(userController.create(repository))
+  )
+  app.post(
+    '/sessions',
+    middlewares.validation(sessionSchema.create),
+    middlewares.wrapAsync(sessionController.create(repository))
+  )
 }
 
 module.exports = {

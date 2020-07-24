@@ -9,6 +9,8 @@ const createApp = (repository) => {
 
   setupRoutes(app, repository)
 
+  app.use(middlewares.globalErrorHandler)
+
   return app
 }
 
