@@ -1,4 +1,5 @@
 const { validateSchema } = require('../schemas')
+const errorPresenter = require('../presenters/error')
 
 const validation = schema => (req, res, next) => {
   try {
@@ -9,7 +10,7 @@ const validation = schema => (req, res, next) => {
 
     next()
   } catch (error) {
-    res.status(400).send({ errors: error.details })
+    res.status(400).send(errorPresenter.fromList(error.details))
   }
 }
 

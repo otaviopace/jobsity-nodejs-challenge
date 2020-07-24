@@ -1,5 +1,6 @@
 const businessLogic = require('../business-logic/user')
 const userPresenter = require('../presenters/user')
+const errorPresenter = require('../presenters/error')
 
 const create = repository => async (req, res) => {
   const existingUser = await repository.User.findOne({
@@ -9,7 +10,7 @@ const create = repository => async (req, res) => {
   })
 
   if (existingUser) {
-    return res.status(400).send({ errors: [{ message: 'username already exists' }] })
+    return res.status(400).send(errorPresenter.fromMessage('username already exists'))
   }
 
   const user = await businessLogic.createUser(

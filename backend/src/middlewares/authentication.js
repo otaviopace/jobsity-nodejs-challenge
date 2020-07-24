@@ -1,16 +1,17 @@
 const jwt = require('jsonwebtoken')
+const errorPresenter = require('../presenters/error')
 
 const authentication = (req, res, next) => {
   const authHeader = req.get('Authorization')
 
   if (!authHeader) {
-    return res.status(401).send({ errors: [{ message: 'authorization header is missing' }] })
+    return res.status(401).send(errorPresenter.fromMessage('authorization header is missing'))
   }
 
   const [bearer, token] = authHeader.split(' ')
 
   if (bearer !== 'Bearer') {
-    return res.status(401).send({ errors: [{ message: 'the string `Bearer` should prefix the auth token' }] })
+    return res.status(401).send(errorPresenter.fromMessage('the string `Bearer` should prefix the auth token'))
   }
 
   try {
@@ -20,7 +21,7 @@ const authentication = (req, res, next) => {
 
     return next()
   } catch (error) {
-    return res.status(401).send({ errors: [{ message: 'invalid authorization token' }] })
+    return res.status(401).send(errorPresenter.fromMessage('invalid authorization token'))
   }
 }
 
