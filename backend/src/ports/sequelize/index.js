@@ -1,7 +1,7 @@
 const Promise = require('bluebird')
 const Sequelize = require('sequelize')
-const config = require('../config/database')
-const DatabaseError = require('../errors/database')
+const config = require('../../config/database')
+const DatabaseError = require('../../errors/database')
 const models = require('./models')
 
 const defaults = {
@@ -15,7 +15,7 @@ const defaults = {
   },
 }
 
-const createDatabase = () => {
+const create = () => {
   const sequelize = new Sequelize({ ...defaults, ...config })
 
   const createModelInstance = (model) => ({
@@ -36,12 +36,12 @@ const createDatabase = () => {
   return sequelize
 }
 
-const ensureDbIsConnected = (db) => {
+const ensureIsConnected = (sequelize) => {
   const MAX_RETRIES = 10
   const RETRY_TIMEOUT = 1000
 
   const tryToConnect = (retry = 1) =>
-    db.authenticate()
+    sequelize.authenticate()
       .catch((err) => {
         if (retry < MAX_RETRIES) {
           return Promise.delay(RETRY_TIMEOUT)
@@ -54,13 +54,13 @@ const ensureDbIsConnected = (db) => {
   return Promise.resolve(tryToConnect())
 }
 
-const connectToDatabase = () =>
-  Promise.resolve(createDatabase())
-    .tap(ensureDbIsConnected)
-    .tap(db => db.sync())
+const connect = () =>
+  Promise.resolve(create())
+    .tap(ensureIsConnected)
+    .tap(sequelize => sequelize.sync())
 
 module.exports = {
-  connectToDatabase,
-  createDatabase,
-  ensureDbIsConnected,
+  connect,
+  create,
+  ensureIsConnected,
 }
