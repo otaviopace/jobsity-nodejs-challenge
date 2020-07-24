@@ -1,24 +1,17 @@
-const { createServer } = require('http')
 const socketIO = require('socket.io')
 const Promise = require('bluebird')
-const { createApp } = require('./ports/http-server/app')
+const { createServer, startServer } = require('./ports/http-server')
 const setupDotenv = require('./config')
-const setupGracefulShutdown = require('./shutdown')
 const { connectToDatabase } = require('./database')
 const DatabaseError = require('./errors/database')
 
 setupDotenv()
 
-const startServer = server =>
-  server.listen(process.env.PORT || 4000)
-
 const start = () => Promise.resolve((async () => {
   const db = await connectToDatabase()
   console.log('success on database connection')
 
-  const app = createApp(db)
-
-  const server = createServer(app)
+  const server = createServer(db)
 
   const io = socketIO(server)
 
@@ -42,8 +35,6 @@ const start = () => Promise.resolve((async () => {
 
   startServer(server)
   console.log('server started listening')
-
-  setupGracefulShutdown(server)
 })())
 
 start()
