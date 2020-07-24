@@ -2,7 +2,7 @@ const setupDotenv = require('./')
 
 setupDotenv()
 
-const databaseConfig = {
+const sequelizeConfig = {
   host: 'postgres',
   port: 5432,
   database: process.env.POSTGRES_DB,
@@ -11,4 +11,4 @@ const databaseConfig = {
   dialect: 'postgres',
 }
 
-module.exports = databaseConfig
+module.exports = sequelizeConfig

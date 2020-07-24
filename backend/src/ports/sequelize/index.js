@@ -1,6 +1,6 @@
 const Promise = require('bluebird')
 const Sequelize = require('sequelize')
-const config = require('../../config/database')
+const config = require('../../config/sequelize')
 const DatabaseError = require('../../errors/database')
 const models = require('./models')
 
