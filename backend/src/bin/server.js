@@ -1,8 +1,8 @@
-const { createServer, startServer } = require('./ports/http-server')
-const { listenWebSocket } = require('./ports/web-socket')
-const setupDotenv = require('./config')
-const { connectToDatabase } = require('./database')
-const DatabaseError = require('./errors/database')
+const { createServer, startServer } = require('../ports/http-server')
+const { listenWebSocket } = require('../ports/web-socket')
+const setupDotenv = require('../config')
+const { connectToDatabase } = require('../database')
+const DatabaseError = require('../errors/database')
 
 setupDotenv()
 

@@ -3,7 +3,7 @@ version: '2.1'
 services:
   backend:
     build: ./backend
-    entrypoint: node src/index.js
+    entrypoint: node src/bin/server.js
     ports:
       - "4000:4000"
     env_file: ./backend/.env
