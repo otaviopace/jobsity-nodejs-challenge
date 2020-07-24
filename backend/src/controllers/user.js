@@ -3,8 +3,8 @@ const businessLogic = require('../business-logic/user')
 const create = db => async (req, res) => {
   const existingUser = await db.models.User.findOne({
     where: {
-      username: req.body.username
-    }
+      username: req.body.username,
+    },
   })
 
   if (existingUser) {
