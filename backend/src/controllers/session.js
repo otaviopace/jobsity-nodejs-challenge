@@ -1,37 +1,28 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const businessLogic = require('../business-logic/session')
 
 const create = db => async (req, res) => {
-  const username = req.body.username
-  const password = req.body.password
-  const user = await db.models.User.findOne({ where: {username} })
+  const user = await db.models.User.findOne({
+    where: {
+      username: req.body.username,
+    },
+  })
 
   if (!user) {
     return res.status(401).send({ errors: [{ message: 'username or passord are incorrect !user' }] })
   }
 
-  const isCorrectPassword = await bcrypt.compare(password, user.password_hash)
+  const isPasswordCorrect = await businessLogic.areTheSamePassword(
+    req.body.password,
+    user.password_hash
+  )
 
-  if (!isCorrectPassword) {
+  if (!isPasswordCorrect) {
     return res.status(401).send({ errors: [{ message: 'username or passord are incorrect !isCorrectPassword' }] })
   }
 
-  const jwtPayload = {
-    id: user.id,
-    username,
-  }
+  const session = businessLogic.createSession(user.id, req.body.username)
 
-  const expiresIn = 604800 // 1 week in seconds
-
-  const token = jwt.sign(
-    jwtPayload,
-    process.env.JWT_SECRET,
-    { expiresIn }
-  )
-
-  return res.status(201).send({
-    token,
-  })
+  return res.status(201).send(session)
 }
 
 module.exports = {
