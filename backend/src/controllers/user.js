@@ -1,4 +1,5 @@
 const businessLogic = require('../business-logic/user')
+const userPresenter = require('../presenters/user')
 
 const create = db => async (req, res) => {
   const existingUser = await db.models.User.findOne({
@@ -18,9 +19,7 @@ const create = db => async (req, res) => {
 
   const dbUser = await db.models.User.create(user)
 
-  delete dbUser.dataValues.password_hash
-
-  return res.status(201).send(dbUser)
+  return res.status(201).send(userPresenter(dbUser))
 }
 
 module.exports = {

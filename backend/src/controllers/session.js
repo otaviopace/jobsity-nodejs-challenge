@@ -1,4 +1,5 @@
 const businessLogic = require('../business-logic/session')
+const sessionPresenter = require('../presenters/session')
 
 const create = db => async (req, res) => {
   const user = await db.models.User.findOne({
@@ -22,7 +23,7 @@ const create = db => async (req, res) => {
 
   const session = businessLogic.createSession(user.id, req.body.username)
 
-  return res.status(201).send(session)
+  return res.status(201).send(sessionPresenter(session))
 }
 
 module.exports = {
