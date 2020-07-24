@@ -2,29 +2,30 @@ const { STRING } = require('sequelize')
 const defaultCuidValue = require('../cuid')
 
 const create = (sequelize) =>
-  sequelize.define('User', {
+  sequelize.define('Message', {
     id: {
       type: STRING,
       primaryKey: true,
       allowNull: false,
       required: true,
-      defaultValue: defaultCuidValue('usr_'),
+      defaultValue: defaultCuidValue('msg_'),
     },
-    username: {
+    text: {
       type: STRING,
       allowNull: false,
       required: true,
-      unique: true,
     },
-    password_hash: {
+    user_id: {
       type: STRING,
       allowNull: false,
       required: true,
     },
   })
 
-const associate = (User, models) => {
-  User.hasMany(models.Message)
+const associate = (Message, models) => {
+  Message.belongsTo(models.User, {
+    foreignKey: 'user_id',
+  })
 }
 
 module.exports = {

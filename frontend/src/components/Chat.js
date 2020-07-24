@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getLocalUsername } from '../AuthService'
+import { getLocalUsername, getLocalId } from '../AuthService'
 
 const Chat = ({ socket }) => {
   const [messages, setMessages] = useState([])
@@ -15,9 +15,10 @@ const Chat = ({ socket }) => {
     event.preventDefault()
 
     const username = getLocalUsername()
+    const id = getLocalId()
 
     if (messageText !== '') {
-      socket.emit('chat-message', {username, text: messageText})
+      socket.emit('chat-message', {user_id: id, username, text: messageText})
       setMessageText('')
     }
   }
