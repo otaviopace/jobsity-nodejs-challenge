@@ -1,8 +1,8 @@
 const businessLogic = require('../business-logic/session')
 const sessionPresenter = require('../presenters/session')
 
-const create = db => async (req, res) => {
-  const user = await db.models.User.findOne({
+const create = repository => async (req, res) => {
+  const user = await repository.User.findOne({
     where: {
       username: req.body.username,
     },

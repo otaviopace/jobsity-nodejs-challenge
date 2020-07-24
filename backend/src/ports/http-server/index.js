@@ -2,8 +2,8 @@ const http = require('http')
 const { createApp } = require('./app')
 const setupGracefulShutdown = require('./shutdown')
 
-const createServer = (db) => {
-  const app = createApp(db)
+const createServer = (repository) => {
+  const app = createApp(repository)
 
   return http.createServer(app)
 }

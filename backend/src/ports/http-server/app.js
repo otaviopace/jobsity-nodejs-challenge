@@ -2,12 +2,12 @@ const express = require('express')
 const middlewares = require('../../middlewares')
 const { setupRoutes } = require('../../routes')
 
-const createApp = (db) => {
+const createApp = (repository) => {
   const app = express()
 
   middlewares.setupDefault(app)
 
-  setupRoutes(app, db)
+  setupRoutes(app, repository)
 
   return app
 }

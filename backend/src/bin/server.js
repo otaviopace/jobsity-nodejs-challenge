@@ -1,30 +1,21 @@
 const { createServer, startServer } = require('../ports/http-server')
 const { listenWebSocket } = require('../ports/web-socket')
+const repository = require('../ports/repository')
 const setupDotenv = require('../config')
-const sequelize = require('../ports/sequelize')
-const DatabaseError = require('../errors/database')
 
 setupDotenv()
 
 const start = async () => {
-  try {
-    const db = await sequelize.connect()
-    console.log('success on database connection')
+  const repo = await repository.connect()
+  console.log('success on database connection')
 
-    const server = createServer(db)
+  const server = createServer(repo)
 
-    listenWebSocket(server, db)
+  listenWebSocket(server, repo)
 
-    startServer(server)
-    console.log('server started listening')
-  } catch (error) {
-    if (error instanceof DatabaseError) {
-      console.error('failed to connect to database, error:', error)
-      return
-    }
-
-    console.error('unknown error:', error)
-  }
+  startServer(server)
+  console.log('server started listening')
 }
 
 start()
+  .catch(console.error)

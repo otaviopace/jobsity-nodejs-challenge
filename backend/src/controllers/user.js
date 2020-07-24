@@ -1,8 +1,8 @@
 const businessLogic = require('../business-logic/user')
 const userPresenter = require('../presenters/user')
 
-const create = db => async (req, res) => {
-  const existingUser = await db.models.User.findOne({
+const create = repository => async (req, res) => {
+  const existingUser = await repository.User.findOne({
     where: {
       username: req.body.username,
     },
@@ -17,9 +17,9 @@ const create = db => async (req, res) => {
     req.body.password
   )
 
-  const dbUser = await db.models.User.create(user)
+  const repositoryUser = await repository.User.create(user)
 
-  return res.status(201).send(userPresenter(dbUser))
+  return res.status(201).send(userPresenter(repositoryUser))
 }
 
 module.exports = {

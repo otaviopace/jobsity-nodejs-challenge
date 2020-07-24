@@ -1,12 +1,12 @@
-const onChatMessage = (io, db) => async data => {
+const onChatMessage = (io, repository) => async data => {
   console.log(`user '${data.username}' messaged '${data.text}' on chat`)
 
-  const message = await db.models.Message.create({
+  const message = await repository.Message.create({
     text: data.text,
     user_id: data.user_id,
   })
 
-  console.log('db message', message)
+  console.log('repository message', message)
   io.emit('chat-message', data)
 }
 
