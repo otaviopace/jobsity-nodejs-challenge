@@ -1,8 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const userController = require('../../controllers/user')
+const sessionController = require('../../controllers/session')
 
 const createApp = (db) => {
   const app = express()
@@ -38,60 +39,8 @@ const createApp = (db) => {
   app.get('/', authMiddleware, (req, res) => res.sendStatus(200))
   app.post('/', authMiddleware, (req, res) => res.status(200).send(req.body))
 
-  app.post('/users', async (req, res) => {
-    const username = req.body.username
-    const existingUser = await db.models.User.findOne({ where: {username} })
-
-    if (existingUser) {
-      return res.status(400).send({ errors: [{ message: 'username already exists' }] })
-    }
-
-    const salt = await bcrypt.genSalt(10)
-
-    const password_hash = await bcrypt.hash(req.body.password, salt)
-
-    const user = await db.models.User.create({
-      username,
-      password_hash,
-    })
-
-    delete user.dataValues.password_hash
-
-    return res.status(201).send(user)
-  })
-
-  app.post('/sessions', async (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
-    const user = await db.models.User.findOne({ where: {username} })
-
-    if (!user) {
-      return res.status(401).send({ errors: [{ message: 'username or passord are incorrect !user' }] })
-    }
-
-    const isCorrectPassword = await bcrypt.compare(password, user.password_hash)
-
-    if (!isCorrectPassword) {
-      return res.status(401).send({ errors: [{ message: 'username or passord are incorrect !isCorrectPassword' }] })
-    }
-
-    const jwtPayload = {
-      id: user.id,
-      username,
-    }
-
-    const expiresIn = 604800 // 1 week in seconds
-
-    const token = jwt.sign(
-      jwtPayload,
-      process.env.JWT_SECRET,
-      { expiresIn }
-    )
-
-    return res.status(201).send({
-      token,
-    })
-  })
+  app.post('/users', userController.create(db))
+  app.post('/sessions', sessionController.create(db))
 
   return app
 }
