@@ -1,6 +1,6 @@
-const socketIO = require('socket.io')
 const Promise = require('bluebird')
 const { createServer, startServer } = require('./ports/http-server')
+const { listenWebSocket } = require('./ports/web-socket')
 const setupDotenv = require('./config')
 const { connectToDatabase } = require('./database')
 const DatabaseError = require('./errors/database')
@@ -13,25 +13,7 @@ const start = () => Promise.resolve((async () => {
 
   const server = createServer(db)
 
-  const io = socketIO(server)
-
-  io.on('connection', socket => {
-    console.log('a user connected')
-
-    socket.on('chat-message', async data => {
-      console.log(`user '${data.username}' messaged '${data.text}' on chat`)
-      const message = await db.models.Message.create({
-        text: data.text,
-        user_id: data.user_id,
-      })
-      console.log('db message', message)
-      io.emit('chat-message', data)
-    })
-
-    socket.on('disconnect', () => {
-      console.log('user disconnected')
-    })
-  })
+  listenWebSocket(server, db)
 
   startServer(server)
   console.log('server started listening')
