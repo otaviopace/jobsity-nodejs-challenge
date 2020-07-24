@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const middlewares = require('../../middlewares')
+const userSchema = require('../../schemas/user')
 const userController = require('../../controllers/user')
 const sessionController = require('../../controllers/session')
 
@@ -15,7 +16,7 @@ const createApp = (db) => {
   app.get('/', middlewares.authentication, (req, res) => res.sendStatus(200))
   app.post('/', middlewares.authentication, (req, res) => res.status(200).send(req.body))
 
-  app.post('/users', userController.create(db))
+  app.post('/users', middlewares.validation(userSchema.create), userController.create(db))
   app.post('/sessions', sessionController.create(db))
 
   return app
