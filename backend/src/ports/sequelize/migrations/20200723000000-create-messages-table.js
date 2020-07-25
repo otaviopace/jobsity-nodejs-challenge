@@ -1,6 +1,6 @@
 const { STRING, DATE } = require('sequelize')
 
-const tableName = 'Message'
+const tableName = 'Messages'
 
 module.exports = {
   up: queryInterface => queryInterface.createTable(tableName, {
