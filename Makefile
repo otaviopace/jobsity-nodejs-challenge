@@ -10,6 +10,9 @@ build-frontend:
 run-frontend:
 	@docker-compose up frontend
 
+start-rabbitmq:
+	@docker-compose up -d rabbitmq
+
 start-db:
 	@docker-compose up -d postgres
 
@@ -21,4 +24,4 @@ migrate-down:
 
 setup-db: start-db migrate-up
 
-.PHONY: build-backend run-backend build-frontend run-frontend start-db setup-db migrate-up migrate-down
+.PHONY: build-backend run-backend build-frontend run-frontend start-db setup-db migrate-up migrate-down rabbitmq

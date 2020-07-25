@@ -25,8 +25,13 @@ const getStockFromCsv = csv => {
   return close
 }
 
-const buildMessage = stockCode => stockValue =>
+const buildMessageText = (stockCode, stockValue) =>
   `${stockCode.toUpperCase()} quote is $${stockValue} per share`
+
+const buildMessage = stockCode => stockValue => ({
+  username: 'stock-bot',
+  text: buildMessageText(stockCode, stockValue),
+})
 
 const fetchStockAPI = url =>
   axios({
@@ -43,6 +48,7 @@ const processStock = ({ stock_code }) =>
     .then(response => response.data)
     .then(getStockFromCsv)
     .then(buildMessage(stock_code))
+    .then(JSON.stringify)
     .catch(logger.error)
 
 const processCommand = command => {
@@ -61,11 +67,11 @@ const start = async () => {
 
   channel.assertQueue('commands', { durable: false })
 
-  channel.consume('commands', async message => {
-    const command = parseMessage(message.content)
+  channel.consume('commands', async data => {
+    const command = parseMessage(data.content)
 
     if (!command) {
-      logger.warn(`Command bad JSON format: ${message.content}`)
+      logger.warn(`Command bad JSON format: ${data.content}`)
       return
     }
 

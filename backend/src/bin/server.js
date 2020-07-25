@@ -1,6 +1,7 @@
 const { createServer, startServer } = require('../ports/http-server')
 const { listenWebSocket } = require('../ports/web-socket')
 const repository = require('../ports/repository')
+const rabbitmq = require('../ports/rabbitmq')
 const { logger } = require('../logger')
 const setupDotenv = require('../config')
 
@@ -12,7 +13,9 @@ const start = async () => {
 
   const server = createServer(repo)
 
-  listenWebSocket(server, repo)
+  const amqpChannel = await rabbitmq.connect()
+
+  listenWebSocket(server, repo, amqpChannel)
 
   startServer(server)
   logger.info('Server started listening')

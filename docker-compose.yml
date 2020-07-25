@@ -19,6 +19,7 @@ services:
         condition: service_healthy
     links:
       - postgres
+      - rabbitmq
 
   postgres:
     image: postgres:9.6-alpine
@@ -30,6 +31,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "8080:15672"
+      - "5672:5672"
+      - "25675:25676"
 
   migration-base:
     build: ./backend
