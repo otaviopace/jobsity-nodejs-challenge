@@ -1,6 +1,7 @@
 const onChatMessage = require('./chat-message')
 const onDisconnect = require('./disconnect')
 const authenticationMiddleware = require('./authentication')
+const wrapAsyncMiddleware = require('./wrap-async')
 const { logger } = require('../../logger')
 
 
@@ -9,7 +10,7 @@ const onConnection = (io, repository) => socket => {
 
   socket.use(authenticationMiddleware)
 
-  socket.on('chat-message', onChatMessage(io, repository))
+  socket.on('chat-message', wrapAsyncMiddleware(io, onChatMessage(io, repository)))
 
   socket.on('disconnect', onDisconnect)
 }
