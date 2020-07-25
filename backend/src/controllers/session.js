@@ -10,7 +10,7 @@ const create = repository => async (req, res) => {
   })
 
   if (!user) {
-    return res.status(401).send(errorPresenter.fromMessage('username or passord are incorrect !user'))
+    return res.status(401).send(errorPresenter.fromMessage('Fields username and/or password are incorrect'))
   }
 
   const isPasswordCorrect = await businessLogic.areTheSamePassword(
@@ -19,7 +19,7 @@ const create = repository => async (req, res) => {
   )
 
   if (!isPasswordCorrect) {
-    return res.status(401).send(errorPresenter.fromMessage('username or passord are incorrect !isCorrectPassword'))
+    return res.status(401).send(errorPresenter.fromMessage('Fields username and/or password are incorrect'))
   }
 
   const session = businessLogic.createSession(user.id, req.body.username)

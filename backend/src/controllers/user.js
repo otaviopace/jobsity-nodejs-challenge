@@ -10,7 +10,7 @@ const create = repository => async (req, res) => {
   })
 
   if (existingUser) {
-    return res.status(400).send(errorPresenter.fromMessage('username already exists'))
+    return res.status(400).send(errorPresenter.fromMessage('An User with this username already exists'))
   }
 
   const user = await businessLogic.createUser(
