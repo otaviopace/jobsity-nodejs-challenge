@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const authentication = require('./authentication')
 const validation = require('./validation')
 const globalErrorHandler = require('./global-error-handler')
-const wrapAsync = require('./wrap-async')
+const catchAsyncError = require('./catch-async-error')
 const { httpLogger } = require('../logger')
 
 const setupDefault = app => {
@@ -17,5 +17,5 @@ module.exports = {
   validation,
   setupDefault,
   globalErrorHandler,
-  wrapAsync,
+  catchAsyncError,
 }

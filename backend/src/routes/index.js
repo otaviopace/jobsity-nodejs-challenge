@@ -16,14 +16,14 @@ const setupRoutes = (app, repository) => {
   app.post(
     '/users',
     middlewares.validation(userSchema.create),
-    middlewares.wrapAsync(userController.create(repository))
+    middlewares.catchAsyncError(userController.create(repository))
   )
   app.all('/users', methodNotAllowed)
 
   app.post(
     '/sessions',
     middlewares.validation(sessionSchema.create),
-    middlewares.wrapAsync(sessionController.create(repository))
+    middlewares.catchAsyncError(sessionController.create(repository))
   )
   app.all('/sessions', methodNotAllowed)
 
