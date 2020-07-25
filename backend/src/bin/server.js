@@ -9,7 +9,6 @@ setupDotenv()
 const start = async () => {
   const repo = await repository.connect()
   logger.info('Database connecion succeeded')
-  throw new Error('bad stuff')
 
   const server = createServer(repo)
 
