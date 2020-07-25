@@ -1,12 +1,13 @@
+const businessLogic = require('../../business-logic/message')
+
 const onChatMessage = (io, repository) => async data => {
   console.log(`user '${data.username}' messaged '${data.text}' on chat`)
 
-  const message = await repository.Message.create({
-    text: data.text,
-    user_id: data.user_id,
-  })
+  const message = businessLogic.createMessage(data)
+  console.log('business-logic message', message)
 
-  console.log('repository message', message)
+  const repoMessage = await repository.Message.create(message)
+
   io.emit('chat-message', data)
 }
 

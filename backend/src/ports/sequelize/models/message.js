@@ -1,5 +1,4 @@
 const { STRING } = require('sequelize')
-const defaultCuidValue = require('../cuid')
 
 const create = (sequelize) =>
   sequelize.define('Message', {
@@ -8,7 +7,6 @@ const create = (sequelize) =>
       primaryKey: true,
       allowNull: false,
       required: true,
-      defaultValue: defaultCuidValue('msg_'),
     },
     text: {
       type: STRING,
