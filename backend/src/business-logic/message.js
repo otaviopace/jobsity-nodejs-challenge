@@ -1,6 +1,6 @@
 const cuidWithPrefix = require('./cuid')
 
-const generateUserId = cuidWithPrefix('msg_')
+const generateMessageId = cuidWithPrefix('msg_')
 
 const createMessage = inputMessage => ({
   id: generateMessageId(),
