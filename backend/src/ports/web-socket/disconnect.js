@@ -1,5 +1,7 @@
+const { logger } = require('../../logger')
+
 const onDisconnect = () => {
-  console.log('user disconnected')
+  logger.info('A user disconnected from the chat')
 }
 
 module.exports = onDisconnect

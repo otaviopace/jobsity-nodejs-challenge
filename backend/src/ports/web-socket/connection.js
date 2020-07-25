@@ -1,8 +1,9 @@
 const onChatMessage = require('./chat-message')
 const onDisconnect = require('./disconnect')
+const { logger } = require('../../logger')
 
 const onConnection = (io, repository) => socket => {
-  console.log('a user connected')
+  logger.info('A user connected to the chat')
 
   socket.on('chat-message', onChatMessage(io, repository))
 
