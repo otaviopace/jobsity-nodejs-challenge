@@ -1,8 +1,10 @@
 const middlewares = require('../middlewares')
 const userSchema = require('../schemas/user')
 const sessionSchema = require('../schemas/session')
+const messageSchema = require('../schemas/message')
 const userController = require('../controllers/user')
 const sessionController = require('../controllers/session')
+const messageController = require('../controllers/message')
 const { resourceNotFound, methodNotAllowed } = require('../controllers')
 
 const setupRoutes = (app, repository) => {
@@ -26,6 +28,14 @@ const setupRoutes = (app, repository) => {
     middlewares.catchAsyncError(sessionController.create(repository))
   )
   app.all('/sessions', methodNotAllowed)
+
+  app.get(
+    '/messages',
+    middlewares.authentication,
+    middlewares.validation(messageSchema.list),
+    middlewares.catchAsyncError(messageController.list(repository))
+  )
+  app.all('/messages', methodNotAllowed)
 
   app.all('*', resourceNotFound)
 }
