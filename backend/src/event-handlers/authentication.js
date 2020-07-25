@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const { decodeSession } = require('../../business-logic/session')
-const { hasSameUserId } = require('../../business-logic/message')
-const { logger } = require('../../logger')
+const { decodeSession } = require('../business-logic/session')
+const { hasSameUserId } = require('../business-logic/message')
+const { logger } = require('../logger')
 
 const isEventChatMessage = args =>
   args[0] === 'chat-message'
@@ -11,8 +11,8 @@ const authenticationMiddleware = (args, next) => {
     return next()
   }
 
-  const session = args.find(e => e.token)
-  const message = args.find(d => d.user_id)
+  const session = args.find(arg => arg.token)
+  const message = args.find(arg => arg.user_id)
 
   try {
     if (!session || !message) {

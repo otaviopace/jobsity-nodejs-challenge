@@ -1,4 +1,4 @@
-const businessLogic = require('../../business-logic/message')
+const businessLogic = require('../business-logic/message')
 
 const onChatMessage = (io, repository) => async data => {
   const message = businessLogic.createMessage(data)

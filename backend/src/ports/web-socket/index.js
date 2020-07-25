@@ -1,10 +1,10 @@
 const socketIO = require('socket.io')
-const onConnection = require('./connection')
+const setupEventHandlers = require('../../event-handlers')
 
 const listenWebSocket = (server, repository) => {
   const io = socketIO(server)
 
-  io.on('connection', onConnection(io, repository))
+  setupEventHandlers(io, repository)
 }
 
 module.exports = {
