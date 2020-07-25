@@ -1,5 +1,5 @@
-const sessionAdapter = inputSession => ({
+const sessionPresenter = inputSession => ({
   token: inputSession.token,
 })
 
-module.exports = sessionAdapter
+module.exports = sessionPresenter

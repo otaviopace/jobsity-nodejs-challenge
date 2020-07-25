@@ -1,6 +1,6 @@
-const userAdapter = inputUser => ({
+const userPresenter = inputUser => ({
   id: inputUser.id,
   username: inputUser.username,
 })
 
-module.exports = userAdapter
+module.exports = userPresenter
