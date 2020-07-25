@@ -19,5 +19,6 @@ const validateSchema = (schema, data) => {
 }
 
 module.exports = {
+  mapJoiError,
   validateSchema,
 }
