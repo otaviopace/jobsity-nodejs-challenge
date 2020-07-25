@@ -39,14 +39,14 @@ services:
 
   migrate-up:
     extends: migration-base
-    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/database.js --migrations-path src/database/migrations/
+    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path src/ports/sequelize/migrations/
     depends_on:
       postgres:
         condition: service_healthy
 
   migrate-down:
     extends: migration-base
-    entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/database.js --migrations-path src/database/migrations/
+    entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path src/ports/sequelize/migrations/
     depends_on:
       postgres:
         condition: service_healthy
