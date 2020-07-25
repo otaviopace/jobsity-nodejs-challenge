@@ -12,6 +12,7 @@ const hasSameUserId = (user, message) =>
   user.id === message.user_id
 
 module.exports = {
+  generateMessageId,
   createMessage,
   hasSameUserId,
 }
