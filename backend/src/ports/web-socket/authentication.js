@@ -3,9 +3,16 @@ const { decodeSession } = require('../../business-logic/session')
 const { hasSameUserId } = require('../../business-logic/message')
 const { logger } = require('../../logger')
 
-const authenticationMiddleware = (data, next) => {
-  const session = data.find(e => e.token)
-  const message = data.find(d => d.user_id)
+const isEventChatMessage = args =>
+  args[0] === 'chat-message'
+
+const authenticationMiddleware = (args, next) => {
+  if (!isEventChatMessage(args)) {
+    return next()
+  }
+
+  const session = args.find(e => e.token)
+  const message = args.find(d => d.user_id)
 
   try {
     if (!session || !message) {
