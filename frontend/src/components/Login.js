@@ -10,6 +10,8 @@ const Login = ({ history }) => {
   const handleSubmit = event => {
     event.preventDefault()
 
+    setErrorMsg('')
+
     return createSession({ username, password })
       .then(() => history.push('/chat'))
       .catch(error => setErrorMsg(error.message))

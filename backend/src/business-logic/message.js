@@ -8,6 +8,10 @@ const createMessage = inputMessage => ({
   user_id: inputMessage.user_id,
 })
 
+const hasSameUserId = (user, message) =>
+  user.id === message.user_id
+
 module.exports = {
   createMessage,
+  hasSameUserId,
 }

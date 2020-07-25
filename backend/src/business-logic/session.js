@@ -24,7 +24,11 @@ const createSession = (userId, username) => {
   return { token }
 }
 
+const decodeSession = token =>
+  jwt.verify(token, process.env.JWT_SECRET)
+
 module.exports = {
   areTheSamePassword,
   createSession,
+  decodeSession,
 }

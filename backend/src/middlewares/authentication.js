@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const businessLogic = require('../business-logic/session')
 const errorPresenter = require('../presenters/error')
 
 const authentication = (req, res, next) => {
@@ -15,7 +16,7 @@ const authentication = (req, res, next) => {
   }
 
   try {
-    const decodedUser = jwt.verify(token, process.env.JWT_SECRET)
+    const decodedUser = businessLogic.decodeSession(token)
 
     req.user = decodedUser
 
