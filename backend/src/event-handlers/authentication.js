@@ -3,11 +3,8 @@ const { decodeSession } = require('../business-logic/session')
 const { hasSameUserId } = require('../business-logic/message')
 const { logger } = require('../logger')
 
-const isEventChatMessage = args =>
-  args[0] === 'chat-message'
-
-const authenticationMiddleware = (args, next) => {
-  if (!isEventChatMessage(args)) {
+const authenticationMiddleware = eventNames => (args, next) => {
+  if (!eventNames.includes(args[0])) {
     return next()
   }
 
