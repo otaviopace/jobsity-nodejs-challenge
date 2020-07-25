@@ -1,15 +1,14 @@
 const axios = require('axios')
+const rabbitmq = require('../ports/rabbitmq')
+const { logger } = require('../logger')
 
-// rabbit.queue('commands')
-//   .listen((command) => {
-//     // switch command
-//     // execute command
-//     const value = fetchStock(stock)
-//
-//     const message = buildMessage(value)// APPL.US quote is $93.42 per share
-//
-//     rabbit.queue('messages').push(message)
-//   })
+const parseMessage = message => {
+  try {
+    return JSON.parse(message)
+  } catch (error) {
+    return null
+  }
+}
 
 const buildUrl = stockCode =>
   `https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcv&h&e=csv`
@@ -38,17 +37,49 @@ const fetchStockAPI = url =>
     },
   })
 
-const processStock = stockCode =>
-  Promise.resolve(buildUrl(stockCode))
+const processStock = ({ stock_code }) =>
+  Promise.resolve(buildUrl(stock_code))
     .then(fetchStockAPI)
     .then(response => response.data)
     .then(getStockFromCsv)
-    .then(buildMessage(stockCode))
-    .then(console.log)
-    .catch(error => {
-      console.log('U FUCKED UP', error)
-    })
+    .then(buildMessage(stock_code))
+    .catch(logger.error)
 
-const stockCode = 'aapl.us'
+const processCommand = command => {
+  switch (command.type) {
+    case 'stock':
+      return processStock(command.parameters)
+      break
+    default:
+      logger.warn(`Command type '${command.type}' not available`)
+      return Promise.resolve()
+  }
+}
 
-processStock(stockCode)
+const start = async () => {
+  const channel = await rabbitmq.connect()
+
+  channel.assertQueue('commands', { durable: false })
+
+  channel.consume('commands', async message => {
+    const command = parseMessage(message.content)
+
+    if (!command) {
+      logger.warn(`Command bad JSON format: ${message.content}`)
+      return
+    }
+
+    const result = await processCommand(command)
+
+    if (!result) {
+      return
+    }
+
+    return rabbitmq.sendMessage(channel, 'messages', result)
+  }, {
+    noAck: true
+  })
+}
+
+start()
+  .catch(console.error)
