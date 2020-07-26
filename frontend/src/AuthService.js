@@ -47,20 +47,24 @@ export const handleErrors = async response => {
   return body
 }
 
-export const requestServer = (route, method, body = {}) =>
+const buildAuthorizationToken = () =>
+  `Bearer ${getLocalSessionToken()}`
+
+export const requestServer = (route, method, withAuthentication = false, body = null) =>
   fetch(buildUrl(route), {
     method,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: withAuthentication ? buildAuthorizationToken() : null,
     },
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : null,
   })
     .then(handleErrors)
 
 export const registerUser = body =>
-  requestServer('/users', 'POST', body)
+  requestServer('/users', 'POST', false, body)
 
 export const createSession = body =>
-  requestServer('/sessions', 'POST', body)
+  requestServer('/sessions', 'POST', false, body)
     .then(decodeAndStoreSession)

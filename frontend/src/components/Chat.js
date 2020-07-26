@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { getLocalUsername, getLocalId, getLocalSessionToken } from '../AuthService'
+import { getLastMessages } from '../MessageService'
 
 const Chat = ({ socket }) => {
   const [messages, setMessages] = useState([])
   const [messageText, setMessageText] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
+
+  useEffect(() => {
+    getLastMessages()
+      .then((msgs) => setMessages(msgs.reverse().slice(-50)))
+      .catch(error => setErrorMsg(error.message))
+  }, [])
 
   useEffect(() => {
     socket.on('chat-message', msgData => {
