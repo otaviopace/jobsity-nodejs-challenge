@@ -17,7 +17,7 @@ const onConnection = (io, repository, amqpChannel) => socket => {
 
   socket.use(authenticationMiddleware(['chat-message']))
 
-  socket.on('chat-message', catchAsyncError(io, onChatMessage(io, repository)))
+  socket.on('chat-message', catchAsyncError(io, onChatMessage(io, repository, amqpChannel)))
 
   socket.on('disconnect', catchSyncError(io, onDisconnect))
 

@@ -21,6 +21,15 @@ services:
       - postgres
       - rabbitmq
 
+  command-bot:
+    build: ./backend
+    entrypoint: node src/bin/command-bot.js
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/backend
+    links:
+      - rabbitmq
+
   postgres:
     image: postgres:9.6-alpine
     ports:

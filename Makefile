@@ -10,6 +10,12 @@ build-frontend:
 run-frontend:
 	@docker-compose up frontend
 
+build-command-bot:
+	@docker-compose build command-bot
+
+run-command-bot:
+	@docker-compose up command-bot
+
 start-rabbitmq:
 	@docker-compose up -d rabbitmq
 
@@ -24,4 +30,4 @@ migrate-down:
 
 setup-db: start-db migrate-up
 
-.PHONY: build-backend run-backend build-frontend run-frontend start-db setup-db migrate-up migrate-down rabbitmq
+.PHONY: build-backend run-backend build-frontend run-frontend start-db setup-db migrate-up migrate-down rabbitmq build-command-bot run-command-bot
