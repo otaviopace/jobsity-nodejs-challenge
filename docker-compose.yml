@@ -14,6 +14,7 @@ services:
       retries: 5
     volumes:
       - ./backend:/backend
+      - /backend/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -27,6 +28,7 @@ services:
     env_file: ./backend/.env
     volumes:
       - ./backend:/backend
+      - /backend/node_modules
     links:
       - rabbitmq
 
@@ -53,6 +55,7 @@ services:
     env_file: ./backend/.env
     volumes:
       - ./backend:/backend
+      - /backend/node_modules
 
   migrate-up:
     extends: migration-base
@@ -75,6 +78,7 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/frontend
+      - /frontend/node_modules
     depends_on:
       backend:
         condition: service_healthy
