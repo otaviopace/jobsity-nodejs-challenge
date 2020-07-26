@@ -8,6 +8,10 @@ const Chat = ({ socket }) => {
 
   useEffect(() => {
     socket.on('chat-message', msgData => {
+      if (messages.length >= 50) {
+        setMessages([...messages.slice(1), msgData])
+        return
+      }
       setMessages([...messages, msgData])
     })
 
