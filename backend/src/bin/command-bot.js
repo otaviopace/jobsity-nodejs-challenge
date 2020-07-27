@@ -1,29 +1,7 @@
 const axios = require('axios')
 const messageBroker = require('../ports/message-broker')
+const { getStockFromCsv, buildStockUrl, buildMessageText, buildMessage } = require('../business-logic/command')
 const { logger } = require('../logger')
-
-const buildUrl = stockCode =>
-  `https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcv&h&e=csv`
-
-const getStockFromCsv = csv => {
-  const [headers, stockData] = csv.split('\n')
-
-  const [symbol, date, time, open, high, low, close, volume] = stockData.split(',')
-
-  if (!close) {
-    return open
-  }
-
-  return close
-}
-
-const buildMessageText = (stockCode, stockValue) =>
-  `${stockCode.toUpperCase()} quote is $${stockValue} per share`
-
-const buildMessage = stockCode => stockValue => ({
-  username: 'stock-bot',
-  text: buildMessageText(stockCode, stockValue),
-})
 
 const fetchStockAPI = url =>
   axios({
@@ -35,7 +13,7 @@ const fetchStockAPI = url =>
   })
 
 const processStock = ({ stock_code }) =>
-  Promise.resolve(buildUrl(stock_code))
+  Promise.resolve(buildStockUrl(stock_code))
     .then(fetchStockAPI)
     .then(response => response.data)
     .then(getStockFromCsv)
