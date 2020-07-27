@@ -1,20 +1,35 @@
 version: '2.1'
 
 services:
-  backend:
+  backend-base:
     build: ./backend
-    entrypoint: node src/bin/server.js
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/backend
+      - /backend/node_modules
+
+  http-backend:
+    extends: backend-base
+    entrypoint: node src/bin/http-server.js
     ports:
       - "4000:4000"
-    env_file: ./backend/.env
     healthcheck:
       test: ["CMD-SHELL", "curl --fail http://localhost:4000/health_check"]
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-      - ./backend:/backend
-      - /backend/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    links:
+      - postgres
+      - rabbitmq
+
+  web-socket-backend:
+    extends: backend-base
+    entrypoint: node src/bin/web-socket-server.js
+    ports:
+      - "5000:5000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -23,12 +38,8 @@ services:
       - rabbitmq
 
   command-bot:
-    build: ./backend
+    extends: backend-base
     entrypoint: node src/bin/command-bot.js
-    env_file: ./backend/.env
-    volumes:
-      - ./backend:/backend
-      - /backend/node_modules
     links:
       - rabbitmq
 
@@ -50,22 +61,15 @@ services:
       - "5672:5672"
       - "25675:25676"
 
-  migration-base:
-    build: ./backend
-    env_file: ./backend/.env
-    volumes:
-      - ./backend:/backend
-      - /backend/node_modules
-
   migrate-up:
-    extends: migration-base
+    extends: backend-base
     entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path src/ports/sequelize/migrations/
     depends_on:
       postgres:
         condition: service_healthy
 
   migrate-down:
-    extends: migration-base
+    extends: backend-base
     entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path src/ports/sequelize/migrations/
     depends_on:
       postgres:
@@ -80,7 +84,7 @@ services:
       - ./frontend:/frontend
       - /frontend/node_modules
     depends_on:
-      backend:
+      http-backend:
         condition: service_healthy
     links:
-      - backend
+      - http-backend

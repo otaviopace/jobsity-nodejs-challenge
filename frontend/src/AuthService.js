@@ -33,9 +33,10 @@ export const logout = () => {
   localStorage.removeItem('id')
 }
 
-export const BASE_URL = 'http://localhost:4000' // should change on deploy env
+export const HTTP_URL = 'http://localhost:4000' // should change on deploy env
+export const WEB_SOCKET_URL = 'http://localhost:5000' // should change on deploy env
 
-export const buildUrl = route => `${BASE_URL}${route}`
+export const buildUrl = route => `${HTTP_URL}${route}`
 
 export const handleErrors = async response => {
   const body = await response.json()

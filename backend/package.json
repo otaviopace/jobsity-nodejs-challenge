@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:server": "node src/bin/server.js",
+    "start:http-server": "node src/bin/http-server.js",
+    "start:web-socket-server": "node src/bin/web-socket-server.js",
     "test": "jest"
   },
   "jest": {

@@ -11,3 +11,4 @@ RUN npm install
 RUN apk --no-cache add curl
 
 EXPOSE 4000
+EXPOSE 5000

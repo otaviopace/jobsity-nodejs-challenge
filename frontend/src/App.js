@@ -6,7 +6,7 @@ import Home from './components/Home'
 import Register from './components/Register'
 import Login from './components/Login'
 import Chat from './components/Chat'
-import { getLocalSessionToken, BASE_URL as URL } from './AuthService'
+import { getLocalSessionToken, WEB_SOCKET_URL } from './AuthService'
 import './App.css'
 
 const PrivateRoute = ({ socket, component, ...options }) => {
@@ -17,7 +17,7 @@ const PrivateRoute = ({ socket, component, ...options }) => {
 }
 
 const App = () => {
-  const socket = socketIO(URL)
+  const socket = socketIO(WEB_SOCKET_URL)
 
   return (
     <Router>
