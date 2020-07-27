@@ -8,13 +8,6 @@ const connect = async () => {
   return channel
 }
 
-const sendMessage = (channel, queue, data) => {
-  channel.assertQueue(queue, { durable: false })
-
-  return channel.sendToQueue(queue, Buffer.from(data))
-}
-
 module.exports = {
   connect,
-  sendMessage,
 }

@@ -1,5 +1,4 @@
 const businessLogic = require('../business-logic/message')
-const { sendMessage } = require('../ports/rabbitmq')
 
 const buildCommand = text => {
   const [commandName, parameter] = text.split('=')
@@ -15,12 +14,12 @@ const buildCommand = text => {
 const isCommand = message =>
   message.text.startsWith('/')
 
-const onChatMessage = (io, repository, amqpChannel) => async data => {
+const onChatMessage = (io, repository, messageBroker) => async data => {
   const message = businessLogic.createMessage(data)
 
   if (isCommand(message)) {
     const command = buildCommand(message.text)
-    await sendMessage(amqpChannel, 'commands', JSON.stringify(command))
+    await messageBroker.sendToQueue('commands', command)
     return
   }
 

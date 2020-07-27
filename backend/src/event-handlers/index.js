@@ -1,7 +1,7 @@
 const onConnection = require('./connection')
 
-const setupEventHandlers = (io, repository, amqpChannel) => {
-  io.on('connection', onConnection(io, repository, amqpChannel))
+const setupEventHandlers = (io, repository, messageBroker) => {
+  io.on('connection', onConnection(io, repository, messageBroker))
 }
 
 module.exports = setupEventHandlers
