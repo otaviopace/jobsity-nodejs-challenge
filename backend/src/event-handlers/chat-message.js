@@ -26,7 +26,7 @@ const onChatMessage = (io, repository, amqpChannel) => async data => {
 
   const repoMessage = await repository.Message.create(message)
 
-  io.emit('chat-message', data)
+  io.emit('chat-message', repoMessage)
 }
 
 module.exports = onChatMessage

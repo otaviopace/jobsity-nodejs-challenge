@@ -13,6 +13,11 @@ const create = (sequelize) =>
       allowNull: false,
       required: true,
     },
+    username: {
+      type: STRING,
+      allowNull: false,
+      required: true,
+    },
     user_id: {
       type: STRING,
       allowNull: false,
