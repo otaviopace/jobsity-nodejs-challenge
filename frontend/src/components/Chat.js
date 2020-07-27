@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getLocalUsername, getLocalId, getLocalSessionToken } from '../AuthService'
-import { getLastMessages } from '../MessageService'
+import { getLocalUsername, getLocalId, getLocalSessionToken } from '../LocalStorage'
+import { getLastMessages } from '../ApiService'
 
 const Chat = ({ socket }) => {
   const [messages, setMessages] = useState([])

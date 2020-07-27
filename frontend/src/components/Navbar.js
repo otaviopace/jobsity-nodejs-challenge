@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { getLocalSessionToken, logout } from '../AuthService'
+import { getLocalSessionToken, logout } from '../LocalStorage'
 
 const Navbar = () => {
   const location = useLocation()

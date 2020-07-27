@@ -7,6 +7,14 @@ const { logger } = require('common/src/logger')
 
 setupDotenv()
 
+const setupBrokerHandlers = (io, messageBroker) => {
+  messageBroker.on('error', logger.error)
+
+  messageBroker.listen('messages', message => {
+    io.emit('chat-message', message)
+  })
+}
+
 const start = async () => {
   const repo = await repository.connect()
   logger.info('Database connecion succeeded')
@@ -16,6 +24,8 @@ const start = async () => {
   const io = createWebSocketServer()
 
   setupEventHandlers(io, repo, msgBroker)
+
+  setupBrokerHandlers(io, msgBroker)
 
   startWebSocketServer(io)
 }

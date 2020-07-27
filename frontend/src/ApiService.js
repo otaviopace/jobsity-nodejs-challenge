@@ -1,13 +1,5 @@
 import jwtDecode from 'jwt-decode'
-
-export const storeId = id =>
-  localStorage.setItem('id', id)
-
-export const storeUsername = username =>
-  localStorage.setItem('username', username)
-
-export const storeSession = sessionToken =>
-  localStorage.setItem('session-token', sessionToken)
+import { storeId, storeUsername, storeSession, getLocalSessionToken } from './LocalStorage'
 
 export const decodeAndStoreSession = body => {
   storeSession(body.token)
@@ -16,21 +8,6 @@ export const decodeAndStoreSession = body => {
 
   storeId(id)
   storeUsername(username)
-}
-
-export const getLocalId = () =>
-  localStorage.getItem('id')
-
-export const getLocalUsername = () =>
-  localStorage.getItem('username')
-
-export const getLocalSessionToken = () =>
-  localStorage.getItem('session-token')
-
-export const logout = () => {
-  localStorage.removeItem('session-token')
-  localStorage.removeItem('username')
-  localStorage.removeItem('id')
 }
 
 export const HTTP_URL = 'http://localhost:4000' // should change on deploy env
@@ -69,3 +46,6 @@ export const registerUser = body =>
 export const createSession = body =>
   requestServer('/sessions', 'POST', false, body)
     .then(decodeAndStoreSession)
+
+export const getLastMessages = () =>
+  requestServer('/messages', 'GET', true)

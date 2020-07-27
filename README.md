@@ -7,9 +7,6 @@ Jobsity's Node.js Code Challenge.
 - [Installation](#installation)
 - [Running](#running)
 - [Features](#features)
-	- [Register Users](#register-users)
-	- [Log Users In](#log-users-in)
-	- [Users Chat](#users-chat)
 - [Architecture](#architecture)
 
 ## Installation
@@ -18,10 +15,12 @@ To install the project you will need `Docker` and `docker-compose`. Also, all th
 
 ### Back-end
 
-To build the back-end images and dependencies, just run:
+There are 3 projects on the backend, to build them you can run:
 
 ```shell
-make build-backend
+make build-http-server
+make build-web-socket-server
+make build-command-bot
 ```
 
 ### Front-end
@@ -38,13 +37,25 @@ The full project is a front-end communicating with a back-end. Below there are i
 
 ### Back-end
 
-To run the back-end just execute:
+To run the back-end just execute in different terminals:
 
 ```shell
-make run-backend
+make run-http-server
 ```
 
-It should be listening on `http://localhost:4000`.
+It listens on `http://localhost:4000`.
+
+```shell
+make run-web-socket-server
+```
+
+It listens on `http://localhost:5000`.
+
+```shell
+make run-command-bot
+```
+
+It is just a bot listening to a RabbitMQ queue, so there's no port to listen to.
 
 ### Front-end
 
@@ -58,13 +69,13 @@ It should be listening on `http://localhost:3000`.
 
 ## Features
 
-### Register Users
-### Log Users In
-### Users Chat
+- Register Users
+- Log Users In
+- Users Chat
 
 ## Architecture
 
-Since there are two applications there's a `README.md` on both folders explaining the architecture.
+Since there are four (three back-end + one front-end) applications there's a `README.md` on both folders explaining the architecture.
 
 - [Back-end](https://github.com/otaviopace/jobsity-nodejs-challenge/blob/master/backend/README.md)
 - [Front-end](https://github.com/otaviopace/jobsity-nodejs-challenge/blob/master/frontend/README.md)

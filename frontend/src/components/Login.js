@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { createSession } from '../AuthService'
+import { createSession } from '../ApiService'
 
 const Login = ({ history }) => {
   const [username, setUsername] = useState('')

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { registerUser } from '../AuthService'
+import { registerUser } from '../ApiService'
 
 const Register = () => {
   const [username, setUsername] = useState('')

@@ -12,12 +12,6 @@ const onConnection = (io, repository, messageBroker) => socket => {
   socket.on('chat-message', catchAsyncError(io, onChatMessage(io, repository, messageBroker)))
 
   socket.on('disconnect', catchSyncError(io, onDisconnect))
-
-  messageBroker.on('error', logger.error)
-
-  messageBroker.listen('messages', message => {
-    io.emit('chat-message', message)
-  })
 }
 
 module.exports = onConnection
