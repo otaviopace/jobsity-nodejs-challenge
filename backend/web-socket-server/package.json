@@ -1,0 +1,19 @@
+{
+  "name": "web-socket-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "common": "file:../common",
+    "jsonwebtoken": "8.5.1"
+  }
+}

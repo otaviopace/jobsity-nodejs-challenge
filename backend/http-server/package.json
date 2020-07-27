@@ -1,0 +1,23 @@
+{
+  "name": "http-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "17.1.1",
+    "body-parser": "1.19.0",
+    "common": "file:../common",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "jsonwebtoken": "8.5.1"
+  }
+}

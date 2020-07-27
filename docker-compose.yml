@@ -1,16 +1,11 @@
-version: '2.1'
+version: '2.3'
 
 services:
-  backend-base:
-    build: ./backend
+  http-server:
+    build:
+      context: ./backend
+      target: http-server
     env_file: ./backend/.env
-    volumes:
-      - ./backend:/backend
-      - /backend/node_modules
-
-  http-backend:
-    extends: backend-base
-    entrypoint: node src/bin/http-server.js
     ports:
       - "4000:4000"
     healthcheck:
@@ -18,6 +13,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      - ./backend/http-server:/http-server
+      - /http-server/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -25,11 +23,16 @@ services:
       - postgres
       - rabbitmq
 
-  web-socket-backend:
-    extends: backend-base
-    entrypoint: node src/bin/web-socket-server.js
+  web-socket-server:
+    build:
+      context: ./backend
+      target: web-socket-server
+    env_file: ./backend/.env
     ports:
       - "5000:5000"
+    volumes:
+      - ./backend/web-socket-server:/web-socket-server
+      - /web-socket-server/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -38,8 +41,13 @@ services:
       - rabbitmq
 
   command-bot:
-    extends: backend-base
-    entrypoint: node src/bin/command-bot.js
+    build:
+      context: ./backend
+      target: command-bot
+    env_file: ./backend/.env
+    volumes:
+      - ./backend/command-bot:/command-bot
+      - /command-bot/node_modules
     links:
       - rabbitmq
 
@@ -61,15 +69,24 @@ services:
       - "5672:5672"
       - "25675:25676"
 
+  common-base:
+    build:
+      context: ./backend
+      target: common
+    env_file: ./backend/.env
+    volumes:
+      - ./backend/common:/common
+      - /common/node_modules
+
   migrate-up:
-    extends: backend-base
+    extends: common-base
     entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path src/ports/sequelize/migrations/
     depends_on:
       postgres:
         condition: service_healthy
 
   migrate-down:
-    extends: backend-base
+    extends: common-base
     entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path src/ports/sequelize/migrations/
     depends_on:
       postgres:
@@ -84,7 +101,8 @@ services:
       - ./frontend:/frontend
       - /frontend/node_modules
     depends_on:
-      http-backend:
+      http-server:
         condition: service_healthy
     links:
-      - http-backend
+      - http-server
+      - web-socket-server

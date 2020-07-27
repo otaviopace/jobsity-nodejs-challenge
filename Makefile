@@ -1,14 +1,14 @@
-build-http-backend:
-	@docker-compose build http-backend
+build-http-server:
+	@docker-compose build http-server
 
-run-http-backend:
-	@docker-compose up http-backend
+run-http-server:
+	@docker-compose up http-server
 
-build-web-socket-backend:
-	@docker-compose build web-socket-backend
+build-web-socket-server:
+	@docker-compose build web-socket-server
 
-run-web-socket-backend:
-	@docker-compose up web-socket-backend
+run-web-socket-server:
+	@docker-compose up web-socket-server
 
 build-frontend:
 	@docker-compose build frontend
@@ -36,4 +36,4 @@ migrate-down:
 
 setup-db: start-db migrate-up
 
-.PHONY: build-web-socket-backend run-web-socket-backend build-http-backend run-http-backend build-frontend run-frontend start-db setup-db migrate-up migrate-down rabbitmq build-command-bot run-command-bot
+.PHONY: build-web-socket-server run-web-socket-server build-http-server run-http-server build-frontend run-frontend start-db setup-db migrate-up migrate-down rabbitmq build-command-bot run-command-bot
