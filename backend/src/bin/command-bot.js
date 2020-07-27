@@ -68,4 +68,4 @@ const start = async () => {
 }
 
 start()
-  .catch(console.error)
+  .catch(logger.error)

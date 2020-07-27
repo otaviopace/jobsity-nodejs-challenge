@@ -50,13 +50,10 @@ const buildPaginationQuery = options => {
 }
 
 const list = repository => async (req, res) => {
-  console.log('req.query', req.query)
   const query = filterQueriableFields(req.query)
   const pagination = { page: req.query.page, count: req.query.count }
-  console.log('filtered query', query)
 
   const paginationQuery = buildPaginationQuery(pagination)
-  console.log('paginationQuery', paginationQuery)
 
   const messages = await repository.Message.findAll({
     where: buildWhere(query),
