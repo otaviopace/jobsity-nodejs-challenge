@@ -4,6 +4,7 @@ const pagination = require('./pagination')
 const list = pagination.keys({
   text: Joi.string(),
   user_id: Joi.string(),
+  username: Joi.string(),
 })
 
 module.exports = {
