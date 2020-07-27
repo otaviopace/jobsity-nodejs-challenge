@@ -38,7 +38,7 @@ const Register = () => {
       {successMsg ? (<span style={{ backgroundColor: "#05ffb0" }}>{successMsg}</span>) : null}
       <form noValidate onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name: </label>
+          <label htmlFor="name">Username: </label>
           <input
             onChange={e => setUsername(e.target.value)}
             value={username}
