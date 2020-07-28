@@ -17,6 +17,8 @@ To install the project you will need `Docker` and `docker-compose`. Also, all th
 
 ### Back-end
 
+First you'll need to copy the `.env.example` file in the `backend` folder to a file named `.env` at the same location.
+
 There are 3 projects on the backend, to build them you can run:
 
 ```shell
@@ -26,6 +28,8 @@ make build-command-bot
 ```
 
 ### Front-end
+
+Just as the back-end, you'll need to copy the `.env.example` file in the `backend` folder to a file named `.env` at the same location.
 
 To build the front-end images and dependencies, just run:
 
