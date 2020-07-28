@@ -39,7 +39,7 @@ The full project is a front-end communicating with a back-end. Below there are i
 
 ### Back-end
 
-To run the back-end just execute in different terminals:
+To run the back-end just execute the commands below in different terminals:
 
 ```shell
 make run-http-server
