@@ -6,7 +6,7 @@ describe('authenticationMiddleware', () => {
 
     const eventsWithAuthentication = [
       'chat-message',
-      'friend-solicitation',
+      'friend-solicitation'
     ]
 
     authenticationMiddleware(eventsWithAuthentication)(['another-event-name'], fakeNext)

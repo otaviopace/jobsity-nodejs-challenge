@@ -29,14 +29,14 @@ test('createSession', async () => {
   expect(session.token.length).toBe(207)
   expect(decodedSession).toEqual(expect.objectContaining({
     id: userId,
-    username,
+    username
   }))
 })
 
 test('decodeSession', () => {
   const decodedSession = {
     userId: 'usr_kajsdflkajsdfklj',
-    username: 'cooooooldude11444',
+    username: 'cooooooldude11444'
   }
   const token = jwt.sign(
     decodedSession,

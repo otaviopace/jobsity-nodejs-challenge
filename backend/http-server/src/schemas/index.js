@@ -1,8 +1,6 @@
-const Joi = require('@hapi/joi')
-
 const mapJoiError = joiErrorDetail => ({
   message: joiErrorDetail.message,
-  path: joiErrorDetail.path,
+  path: joiErrorDetail.path
 })
 
 const validateSchema = (schema, data) => {
@@ -20,5 +18,5 @@ const validateSchema = (schema, data) => {
 
 module.exports = {
   mapJoiError,
-  validateSchema,
+  validateSchema
 }

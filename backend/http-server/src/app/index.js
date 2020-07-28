@@ -15,5 +15,5 @@ const createApp = (repository) => {
 }
 
 module.exports = {
-  createApp,
+  createApp
 }

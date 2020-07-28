@@ -3,5 +3,5 @@ const Message = require('./message')
 
 module.exports = {
   User,
-  Message,
+  Message
 }

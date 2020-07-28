@@ -6,19 +6,19 @@ const create = (sequelize) =>
       type: STRING,
       primaryKey: true,
       allowNull: false,
-      required: true,
+      required: true
     },
     username: {
       type: STRING,
       allowNull: false,
       required: true,
-      unique: true,
+      unique: true
     },
     password_hash: {
       type: STRING,
       allowNull: false,
-      required: true,
-    },
+      required: true
+    }
   })
 
 const associate = (User, models) => {
@@ -27,5 +27,5 @@ const associate = (User, models) => {
 
 module.exports = {
   create,
-  associate,
+  associate
 }

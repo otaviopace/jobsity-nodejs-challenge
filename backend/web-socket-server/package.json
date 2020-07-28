@@ -6,6 +6,9 @@
   "directories": {
     "test": "tests"
   },
+  "standard": {
+    "env": [ "jest" ]
+  },
   "scripts": {
     "test": "jest"
   },

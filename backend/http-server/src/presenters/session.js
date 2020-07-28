@@ -1,5 +1,5 @@
 const sessionPresenter = inputSession => ({
-  token: inputSession.token,
+  token: inputSession.token
 })
 
 module.exports = sessionPresenter

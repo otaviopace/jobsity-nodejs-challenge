@@ -1,7 +1,7 @@
 const createFakeIO = () => ({
-  emit: jest.fn(),
+  emit: jest.fn()
 })
 
 module.exports = {
-  createFakeIO,
+  createFakeIO
 }

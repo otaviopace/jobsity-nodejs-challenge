@@ -38,7 +38,7 @@ const Chat = ({ socket }) => {
     if (messageText !== '') {
       socket.emit(
         'chat-message',
-        {user_id: id, username, text: messageText},
+        { user_id: id, username, text: messageText },
         { token }
       )
       setMessageText('')
@@ -46,22 +46,22 @@ const Chat = ({ socket }) => {
   }
 
   return (
-    <div className="default-left-padding">
-      {errorMsg ? (<span style={{ backgroundColor: "hsl(14, 100%, 53%)" }}>{errorMsg}</span>) : null}
-      <ul id="messages">
+    <div className='default-left-padding'>
+      {errorMsg ? (<span style={{ backgroundColor: 'hsl(14, 100%, 53%)' }}>{errorMsg}</span>) : null}
+      <ul id='messages'>
         {
           messages.map(({ text, username }, idx) => <li key={idx}>{username}: {text}</li>)
         }
       </ul>
-      <form className="messages-form" onSubmit={handleSubmit}>
+      <form className='messages-form' onSubmit={handleSubmit}>
         <input
           onChange={e => setMessageText(e.target.value)}
           value={messageText}
-          className="messages-input"
-          id="m"
-          autoComplete="off"
+          className='messages-input'
+          id='m'
+          autoComplete='off'
         />
-        <button className="messages-button">Send</button>
+        <button className='messages-button'>Send</button>
       </form>
     </div>
   )

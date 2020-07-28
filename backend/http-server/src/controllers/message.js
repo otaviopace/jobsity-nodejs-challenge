@@ -7,12 +7,12 @@ const list = repository => async (req, res) => {
   const messages = await repository.Message.findAll({
     ...buildWhere(req.query, queryableFields),
     ...defaultOrdering,
-    ...buildPagination({ page: req.query.page, count: req.query.count }),
+    ...buildPagination({ page: req.query.page, count: req.query.count })
   })
 
   res.status(200).send(messages.map(messagePresenter))
 }
 
 module.exports = {
-  list,
+  list
 }

@@ -7,29 +7,29 @@ module.exports = {
     id: {
       type: STRING,
       primaryKey: true,
-      allowNull: false,
+      allowNull: false
     },
     username: {
       type: STRING,
       allowNull: false,
       required: true,
-      unique: true,
+      unique: true
     },
     password_hash: {
       type: STRING,
       allowNull: false,
-      required: true,
+      required: true
     },
     created_at: {
       type: DATE,
       allowNull: false,
-      required: true,
+      required: true
     },
     updated_at: {
       type: DATE,
       allowNull: false,
-      required: true,
-    },
+      required: true
+    }
   }),
-  down: queryInterface => queryInterface.dropTable(tableName),
+  down: queryInterface => queryInterface.dropTable(tableName)
 }

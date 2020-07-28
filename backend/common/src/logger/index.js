@@ -1,6 +1,5 @@
 const log4js = require('log4js').getLogger()
 const escriba = require('escriba')
-const cuid = require('cuid')
 
 log4js.level = 'info'
 
@@ -11,18 +10,18 @@ const { logger, httpLogger } = escriba({
     password: {
       paths: ['message.password', 'body.password'],
       pattern: /\w.*/g,
-      replacer: '*',
+      replacer: '*'
     },
     password_hash: {
       paths: ['message.password_hash', 'body.password_hash'],
       pattern: /\w.*/g,
-      replacer: '*',
+      replacer: '*'
     },
     token: {
       paths: ['message.token', 'body.token'],
       pattern: /\w.*/g,
-      replacer: '*',
-    },
+      replacer: '*'
+    }
   },
   httpConf: {
     propsToLog: {
@@ -33,27 +32,27 @@ const { logger, httpLogger } = escriba({
       {
         route: /\/health_check/,
         method: /.*/,
-        onlyBody: false,
+        onlyBody: false
       },
       {
         route: /.*/,
         method: /GET/,
-        onlyBody: true,
+        onlyBody: true
       },
       {
         route: /.*/,
         method: /OPTIONS/,
-        onlyBody: false,
-      },
+        onlyBody: false
+      }
     ],
     propMaxLength: {
       body: 2048,
-      url: 1024,
-    },
-  },
+      url: 1024
+    }
+  }
 })
 
 module.exports = {
   logger,
-  httpLogger,
+  httpLogger
 }

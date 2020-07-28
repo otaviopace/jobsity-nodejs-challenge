@@ -7,18 +7,18 @@ describe('onChatMessage', () => {
     const fakeCreate = jest.fn().mockReturnValueOnce(Promise.resolve(createdMessage))
     const fakeRepository = {
       Message: {
-        create: fakeCreate,
-      },
+        create: fakeCreate
+      }
     }
     const fakeIO = createFakeIO()
     const fakeData = {
       id: 'msg_kajsdflajksdf',
       text: 'hey bro, sup',
-      user_id: 'usr_lkasjfdklajsf',
+      user_id: 'usr_lkasjfdklajsf'
     }
 
     const fakeMsgBroker = {
-      sendToQueue: jest.fn().mockReturnValueOnce(Promise.resolve()),
+      sendToQueue: jest.fn().mockReturnValueOnce(Promise.resolve())
     }
 
     await onChatMessage(fakeIO, fakeRepository, fakeMsgBroker)(fakeData)
@@ -27,12 +27,12 @@ describe('onChatMessage', () => {
     expect(fakeCreate.mock.calls[0][0]).toEqual(expect.objectContaining({
       id: expect.any(String),
       text: fakeData.text,
-      user_id: fakeData.user_id,
+      user_id: fakeData.user_id
     }))
     expect(fakeIO.emit.mock.calls.length).toBe(1)
     expect(fakeIO.emit.mock.calls[0]).toEqual([
       'chat-message',
-      fakeData,
+      fakeData
     ])
     expect(fakeMsgBroker.sendToQueue.mock.calls.length).toBe(0)
   })
@@ -41,18 +41,18 @@ describe('onChatMessage', () => {
     const fakeCreate = jest.fn()
     const fakeRepository = {
       Message: {
-        create: fakeCreate,
-      },
+        create: fakeCreate
+      }
     }
     const fakeIO = createFakeIO()
     const fakeData = {
       id: 'msg_kajsdflajksdf',
       text: '/stock=aapl.us',
-      user_id: 'usr_lkasjfdklajsf',
+      user_id: 'usr_lkasjfdklajsf'
     }
 
     const fakeMsgBroker = {
-      sendToQueue: jest.fn().mockReturnValueOnce(Promise.resolve()),
+      sendToQueue: jest.fn().mockReturnValueOnce(Promise.resolve())
     }
 
     await onChatMessage(fakeIO, fakeRepository, fakeMsgBroker)(fakeData)
@@ -62,7 +62,7 @@ describe('onChatMessage', () => {
     expect(fakeMsgBroker.sendToQueue.mock.calls.length).toBe(1)
     expect(fakeMsgBroker.sendToQueue.mock.calls[0]).toEqual([
       'commands',
-      { type: 'stock', parameters: { stock_code: "aapl.us" } },
+      { type: 'stock', parameters: { stock_code: 'aapl.us' } }
     ])
   })
 })

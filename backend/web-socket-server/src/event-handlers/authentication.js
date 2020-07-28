@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const { decodeSession } = require('common/src/business-logic/session')
 const { hasSameUserId } = require('common/src/business-logic/message')
 const { logger } = require('common/src/logger')

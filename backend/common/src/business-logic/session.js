@@ -10,7 +10,7 @@ const areTheSamePassword = (password, passwordHash) =>
 const createSession = (userId, username) => {
   const jwtPayload = {
     id: userId,
-    username,
+    username
   }
 
   const WEEK_IN_SECONDS = 604800
@@ -30,5 +30,5 @@ const decodeSession = token =>
 module.exports = {
   areTheSamePassword,
   createSession,
-  decodeSession,
+  decodeSession
 }

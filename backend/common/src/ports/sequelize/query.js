@@ -27,8 +27,8 @@ const buildWhere = (query, queryableFields) => {
       return {
         ...where,
         [key]: {
-          [Op.like]: includedValue,
-        },
+          [Op.like]: includedValue
+        }
       }
     }, {})
 
@@ -46,16 +46,16 @@ const buildPagination = options => {
 
   return {
     limit,
-    offset,
+    offset
   }
 }
 
 const defaultOrdering = {
-  order: [['id', 'DESC']],
+  order: [['id', 'DESC']]
 }
 
 module.exports = {
   buildPagination,
   buildWhere,
-  defaultOrdering,
+  defaultOrdering
 }

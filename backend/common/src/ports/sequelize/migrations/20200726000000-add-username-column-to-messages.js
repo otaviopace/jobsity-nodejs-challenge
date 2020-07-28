@@ -12,5 +12,5 @@ module.exports = {
       allowNull: false
     }
   ),
-  down: queryInterface => queryInterface.removeColumn(tableName, columnName),
+  down: queryInterface => queryInterface.removeColumn(tableName, columnName)
 }

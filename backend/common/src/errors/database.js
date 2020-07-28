@@ -1,7 +1,7 @@
 const CustomError = require('./')
 
 class DatabaseError extends CustomError {
-  constructor(sequelizeError) {
+  constructor (sequelizeError) {
     super(sequelizeError.message)
 
     this.sequelizeError = sequelizeError

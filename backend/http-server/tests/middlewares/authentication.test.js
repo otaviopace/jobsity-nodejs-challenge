@@ -18,16 +18,16 @@ describe('authenticationMiddleware', () => {
         status: statusCode => {
           expect(statusCode).toBe(401)
           return {
-            send: fakeSend,
+            send: fakeSend
           }
-        },
+        }
       }
 
       authenticationMiddleware(fakeReq, fakeRes, fakeNext)
 
       expect(fakeSend.mock.calls.length).toBe(1)
       expect(fakeSend.mock.calls[0][0]).toEqual({
-        errors: [{ message: 'Authorization header is missing' }],
+        errors: [{ message: 'Authorization header is missing' }]
       })
       expect(fakeNext.mock.calls.length).toBe(0)
     })
@@ -47,16 +47,16 @@ describe('authenticationMiddleware', () => {
         status: statusCode => {
           expect(statusCode).toBe(401)
           return {
-            send: fakeSend,
+            send: fakeSend
           }
-        },
+        }
       }
 
       authenticationMiddleware(fakeReq, fakeRes, fakeNext)
 
       expect(fakeSend.mock.calls.length).toBe(1)
       expect(fakeSend.mock.calls[0][0]).toEqual({
-        errors: [{ message: '\'Bearer\' prefix missing on Authorization header' }],
+        errors: [{ message: '\'Bearer\' prefix missing on Authorization header' }]
       })
       expect(fakeNext.mock.calls.length).toBe(0)
     })
@@ -76,16 +76,16 @@ describe('authenticationMiddleware', () => {
         status: statusCode => {
           expect(statusCode).toBe(401)
           return {
-            send: fakeSend,
+            send: fakeSend
           }
-        },
+        }
       }
 
       authenticationMiddleware(fakeReq, fakeRes, fakeNext)
 
       expect(fakeSend.mock.calls.length).toBe(1)
       expect(fakeSend.mock.calls[0][0]).toEqual({
-        errors: [{ message: 'Invalid token on Authorization header' }],
+        errors: [{ message: 'Invalid token on Authorization header' }]
       })
       expect(fakeNext.mock.calls.length).toBe(0)
     })
@@ -104,7 +104,7 @@ describe('authenticationMiddleware', () => {
         })
       const fakeReq = { get: fakeGetHeader }
       const fakeRes = {
-        status: jest.fn(),
+        status: jest.fn()
       }
 
       authenticationMiddleware(fakeReq, fakeRes, fakeNext)

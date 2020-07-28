@@ -7,66 +7,64 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="default-left-padding">
+      <div className='default-left-padding'>
         <h1>Jobsity Chat</h1>
         {
           location.pathname !== '/'
-            ?
-              <Link to="/">
-                Home
-              </Link>
-            :
-              <React.Fragment></React.Fragment>
+            ? <Link to='/'>Home</Link>
+            : <></>
         }
         <br />
         {
           getLocalSessionToken()
-            ?
-              <React.Fragment>
+            ? (
+              <>
                 <div>
-                  <a href="/" onClick={logout}>
-                    Log Out
+                  <a href='/' onClick={logout}>
+                      Log Out
                   </a>
                 </div>
                 {(location.pathname !== '/chat' &&
-                <div>
-                  <Link to="/chat">
-                    Chat
-                  </Link>
-                </div>
+                  <div>
+                    <Link to='/chat'>
+                      Chat
+                    </Link>
+                  </div>
                 )}
-              </React.Fragment>
-            :
-              <React.Fragment>
+              </>
+            )
+            : (
+              <>
                 {(location.pathname !== '/register' &&
                   <div>
                     <Link
-                      to="/register"
+                      to='/register'
                       style={{
-                        width: "140px",
-                        borderRadius: "3px",
-                        letterSpacing: "1.5px"
+                        width: '140px',
+                        borderRadius: '3px',
+                        letterSpacing: '1.5px'
                       }}
                     >
-                      Register
+                        Register
                     </Link>
                   </div>
                 )}
                 {(location.pathname !== '/login' &&
                   <div>
                     <Link
-                      to="/login"
+                      to='/login'
                       style={{
-                        width: "140px",
-                        borderRadius: "3px",
-                        letterSpacing: "1.5px"
+                        width: '140px',
+                        borderRadius: '3px',
+                        letterSpacing: '1.5px'
                       }}
                     >
-                      Log In
+                        Log In
                     </Link>
                   </div>
                 )}
-              </React.Fragment>
+              </>
+            )
         }
       </div>
     </nav>

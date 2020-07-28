@@ -18,5 +18,5 @@ const startWebSocketServer = server => {
 
 module.exports = {
   createWebSocketServer,
-  startWebSocketServer,
+  startWebSocketServer
 }

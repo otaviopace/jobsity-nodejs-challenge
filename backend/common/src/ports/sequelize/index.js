@@ -11,8 +11,8 @@ const defaults = {
     underscoredAll: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
-  },
+    deletedAt: 'deleted_at'
+  }
 }
 
 const create = () => {
@@ -62,5 +62,5 @@ const connect = () =>
 module.exports = {
   connect,
   create,
-  ensureIsConnected,
+  ensureIsConnected
 }

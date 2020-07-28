@@ -1,7 +1,6 @@
 const { createMessage, isCommand } = require('common/src/business-logic/message')
 const { buildCommand } = require('common/src/business-logic/command')
 
-
 const onChatMessage = (io, repository, messageBroker) => async data => {
   const message = createMessage(data)
 

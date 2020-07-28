@@ -5,7 +5,7 @@ const createFakeSequelizeModel = () => ({
   findOne: jest.fn().mockReturnValueOnce(Promise.resolve()),
   findAll: jest.fn().mockReturnValueOnce(Promise.resolve()),
   update: jest.fn().mockReturnValueOnce(Promise.resolve()),
-  destroy: jest.fn().mockReturnValueOnce(Promise.resolve()),
+  destroy: jest.fn().mockReturnValueOnce(Promise.resolve())
 })
 
 test('createRepositoryModel', () => {
@@ -18,7 +18,7 @@ test('createRepositoryModel', () => {
     findOne: expect.any(Function),
     findAll: expect.any(Function),
     update: expect.any(Function),
-    destroy: expect.any(Function),
+    destroy: expect.any(Function)
   })
 
   expect(fakeSequelizeModel.create.mock.calls).toEqual([])
@@ -29,7 +29,7 @@ test('createRepositoryModel', () => {
 
   repositoryModel.create(1, 2, 3)
 
-  expect(fakeSequelizeModel.create.mock.calls).toEqual([[1,2,3]])
+  expect(fakeSequelizeModel.create.mock.calls).toEqual([[1, 2, 3]])
   expect(fakeSequelizeModel.findOne.mock.calls).toEqual([])
   expect(fakeSequelizeModel.findAll.mock.calls).toEqual([])
   expect(fakeSequelizeModel.update.mock.calls).toEqual([])
@@ -72,8 +72,8 @@ test('fromSequelize', () => {
   const fakeSequelize = {
     models: {
       User: createFakeSequelizeModel(),
-      Message: createFakeSequelizeModel(),
-    },
+      Message: createFakeSequelizeModel()
+    }
   }
 
   const repository = fromSequelize(fakeSequelize)
@@ -84,14 +84,14 @@ test('fromSequelize', () => {
       findOne: expect.any(Function),
       findAll: expect.any(Function),
       update: expect.any(Function),
-      destroy: expect.any(Function),
+      destroy: expect.any(Function)
     },
     Message: {
       create: expect.any(Function),
       findOne: expect.any(Function),
       findAll: expect.any(Function),
       update: expect.any(Function),
-      destroy: expect.any(Function),
-    },
+      destroy: expect.any(Function)
+    }
   })
 })

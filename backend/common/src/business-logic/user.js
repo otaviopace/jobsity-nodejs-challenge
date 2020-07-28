@@ -14,11 +14,11 @@ const generateHash = async str => {
 const createUser = async (username, password) => ({
   id: generateUserId(),
   username,
-  password_hash: await generateHash(password),
+  password_hash: await generateHash(password)
 })
 
 module.exports = {
   createUser,
   generateHash,
-  generateUserId,
+  generateUserId
 }

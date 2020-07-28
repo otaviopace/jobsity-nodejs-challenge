@@ -19,6 +19,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "standard": {
+    "env": [ "jest" ],
+    "globals": [ "fetch", "localStorage" ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },

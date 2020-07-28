@@ -34,9 +34,9 @@ export const requestServer = (route, method, withAuthentication = false, body = 
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: withAuthentication ? buildAuthorizationToken() : null,
+      Authorization: withAuthentication ? buildAuthorizationToken() : null
     },
-    body: body ? JSON.stringify(body) : null,
+    body: body ? JSON.stringify(body) : null
   })
     .then(handleErrors)
 

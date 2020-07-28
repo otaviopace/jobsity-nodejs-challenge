@@ -8,7 +8,7 @@ const messageController = require('../controllers/message')
 const { resourceNotFound, methodNotAllowed } = require('../controllers')
 
 const setupRoutes = (app, repository) => {
-  app.get('/health_check',  (req, res) => res.sendStatus(200))
+  app.get('/health_check', (req, res) => res.sendStatus(200))
   app.all('/health_check', methodNotAllowed)
 
   app.post(
@@ -37,5 +37,5 @@ const setupRoutes = (app, repository) => {
 }
 
 module.exports = {
-  setupRoutes,
+  setupRoutes
 }

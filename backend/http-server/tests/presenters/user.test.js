@@ -6,11 +6,11 @@ test('userPresenter', () => {
     username: 'noicejude444',
     created_at: new Date(),
     updated_at: new Date(),
-    deleted_at: null,
+    deleted_at: null
   }
 
   expect(userPresenter(inputUser)).toEqual({
     id: inputUser.id,
-    username: inputUser.username,
+    username: inputUser.username
   })
 })

@@ -7,6 +7,7 @@ Jobsity's Node.js Code Challenge.
 - [Installation](#installation)
 - [Running](#running)
 - [Tests](#tests)
+- [Lint](#lint)
 - [Features](#features)
 - [Architecture](#architecture)
 
@@ -76,6 +77,14 @@ To run tests just use:
 make common-test
 make http-server-test
 make web-socket-test
+```
+
+## Lint
+
+The project uses [standard JS](https://standardjs.com/index.html) style guide. To run the linter just use (you'll need Node.js installed for this one):
+
+```shell
+npx standard
 ```
 
 ## Features

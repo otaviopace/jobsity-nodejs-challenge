@@ -22,5 +22,5 @@ const catchAsyncError = (io, eventHandler) => (...args) =>
 module.exports = {
   emitError,
   catchSyncError,
-  catchAsyncError,
+  catchAsyncError
 }

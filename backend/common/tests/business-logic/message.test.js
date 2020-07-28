@@ -8,7 +8,7 @@ test('generateMessageId', () => {
 test('createMessage', () => {
   const inputMessage = {
     text: 'hey person',
-    user_id: 'usr_jaslkdfjasklfdjaksdfja',
+    user_id: 'usr_jaslkdfjasklfdjaksdfja'
   }
 
   const message = createMessage(inputMessage)

@@ -4,7 +4,7 @@ const shutdownServer = (server, exitCode) =>
 const signals = {
   SIGHUP: 1,
   SIGINT: 2,
-  SIGTERM: 15,
+  SIGTERM: 15
 }
 
 const setupGracefulShutdown = (server) => {

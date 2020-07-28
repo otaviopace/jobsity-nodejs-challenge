@@ -6,7 +6,7 @@ const createMessage = inputMessage => ({
   id: generateMessageId(),
   text: inputMessage.text,
   user_id: inputMessage.user_id,
-  username: inputMessage.username,
+  username: inputMessage.username
 })
 
 const hasSameUserId = (user, message) =>
@@ -19,5 +19,5 @@ module.exports = {
   generateMessageId,
   createMessage,
   hasSameUserId,
-  isCommand,
+  isCommand
 }

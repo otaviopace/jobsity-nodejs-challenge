@@ -12,7 +12,7 @@ import './App.css'
 
 const PrivateRoute = ({ socket, component, ...options }) => {
   const sessionToken = getLocalSessionToken()
-  const finalComponent = sessionToken ? () => component({socket}) : () => (<Redirect from="/chat" to="/"/>)
+  const finalComponent = sessionToken ? () => component({ socket }) : () => (<Redirect from='/chat' to='/' />)
 
   return <Route {...options} component={finalComponent} />
 }
@@ -23,10 +23,10 @@ const App = () => {
   return (
     <Router>
       <Navbar />
-      <Route exact path="/" component={Home} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/login" component={Login} />
-      <PrivateRoute exact path="/chat" component={Chat} socket={socket}/>
+      <Route exact path='/' component={Home} />
+      <Route exact path='/register' component={Register} />
+      <Route exact path='/login' component={Login} />
+      <PrivateRoute exact path='/chat' component={Chat} socket={socket} />
     </Router>
   )
 }

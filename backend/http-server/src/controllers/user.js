@@ -5,8 +5,8 @@ const errorPresenter = require('../presenters/error')
 const create = repository => async (req, res) => {
   const existingUser = await repository.User.findOne({
     where: {
-      username: req.body.username,
-    },
+      username: req.body.username
+    }
   })
 
   if (existingUser) {
@@ -24,5 +24,5 @@ const create = repository => async (req, res) => {
 }
 
 module.exports = {
-  create,
+  create
 }

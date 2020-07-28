@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const businessLogic = require('common/src/business-logic/session')
 const errorPresenter = require('../presenters/error')
 

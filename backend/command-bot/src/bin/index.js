@@ -6,7 +6,6 @@ const processCommand = command => {
   switch (command.type) {
     case 'stock':
       return processStock(command.parameters)
-      break
     default:
       logger.warn(`Command type '${command.type}' not available`)
       return Promise.resolve()

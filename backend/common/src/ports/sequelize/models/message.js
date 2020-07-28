@@ -6,32 +6,32 @@ const create = (sequelize) =>
       type: STRING,
       primaryKey: true,
       allowNull: false,
-      required: true,
+      required: true
     },
     text: {
       type: STRING,
       allowNull: false,
-      required: true,
+      required: true
     },
     username: {
       type: STRING,
       allowNull: false,
-      required: true,
+      required: true
     },
     user_id: {
       type: STRING,
       allowNull: false,
-      required: true,
-    },
+      required: true
+    }
   })
 
 const associate = (Message, models) => {
   Message.belongsTo(models.User, {
-    foreignKey: 'user_id',
+    foreignKey: 'user_id'
   })
 }
 
 module.exports = {
   create,
-  associate,
+  associate
 }

@@ -21,23 +21,23 @@ const stringifyWrapper = (broker, data) => {
 }
 
 class MessageBroker extends EventEmitter {
-  constructor(amqpChannel) {
+  constructor (amqpChannel) {
     super()
 
     this.amqpChannel = amqpChannel
   }
 
-  _assertQueue(queueName) {
+  _assertQueue (queueName) {
     this.amqpChannel.assertQueue(queueName, { durable: false })
   }
 
-  listen(queueName, callback, options = { noAck: true }) {
+  listen (queueName, callback, options = { noAck: true }) {
     this._assertQueue(queueName)
 
     return this.amqpChannel.consume(queueName, parserWrapper(this, callback), options)
   }
 
-  sendToQueue(queueName, data) {
+  sendToQueue (queueName, data) {
     this._assertQueue(queueName)
 
     const stringifiedContent = stringifyWrapper(this, data)
@@ -52,5 +52,5 @@ const fromRabbitMq = amqpChannel =>
   new MessageBroker(amqpChannel)
 
 module.exports = {
-  fromRabbitMq,
+  fromRabbitMq
 }
