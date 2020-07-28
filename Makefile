@@ -45,4 +45,4 @@ migrate-down:
 
 setup-db: start-db migrate-up
 
-.PHONY: build-web-socket-server run-web-socket-server build-http-server run-http-server build-frontend run-frontend start-db setup-db migrate-up migrate-down rabbitmq build-command-bot run-command-bot
+.PHONY: http-server-test web-socket-server-test common-test build-web-socket-server run-web-socket-server build-http-server run-http-server build-frontend run-frontend start-db setup-db migrate-up migrate-down rabbitmq build-command-bot run-command-bot
