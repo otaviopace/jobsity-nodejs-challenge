@@ -1,16 +1,13 @@
 {
   "name": "command-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bot for chat commands",
   "main": "bin/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "standard": {
-    "env": [ "jest" ]
-  },
   "keywords": [],
-  "author": "",
+  "author": "Otávio Pace",
   "license": "ISC",
   "dependencies": {
     "axios": "0.19.2",

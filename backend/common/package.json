@@ -8,7 +8,7 @@
   "standard": {
     "env": [ "jest" ]
   },
-  "author": "",
+  "author": "Otávio Pace",
   "license": "ISC",
   "dependencies": {
     "amqplib": "0.6.0",

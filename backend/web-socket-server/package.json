@@ -1,7 +1,7 @@
 {
   "name": "web-socket-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web Socket server for chat application",
   "main": "bin/index.js",
   "directories": {
     "test": "tests"
@@ -13,7 +13,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Otávio Pace",
   "license": "ISC",
   "dependencies": {
     "common": "file:../common",
