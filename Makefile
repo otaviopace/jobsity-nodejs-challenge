@@ -1,3 +1,12 @@
+web-socket-server-test:
+	@docker-compose up web-socket-server-test
+
+common-test:
+	@docker-compose up common-test
+
+http-server-test:
+	@docker-compose up http-server-test
+
 build-http-server:
 	@docker-compose build http-server
 

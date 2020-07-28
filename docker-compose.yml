@@ -1,11 +1,42 @@
 version: '2.3'
 
 services:
+  web-socket-server-test:
+    env_file: ./backend/.env.example
+    entrypoint: npm test
+    build:
+      context: ./backend
+      target: web-socket-server
+    volumes:
+      - ./backend/web-socket-server:/web-socket-server
+      - /web-socket-server/node_modules
+
+  http-server-test:
+    env_file: ./backend/.env.example
+    entrypoint: npm test
+    build:
+      context: ./backend
+      target: http-server
+    volumes:
+      - ./backend/http-server:/http-server
+      - /http-server/node_modules
+
+  common-test:
+    env_file: ./backend/.env.example
+    entrypoint: npm test
+    build:
+      context: ./backend
+      target: common
+    volumes:
+      - ./backend/common:/common
+      - /common/node_modules
+
   http-server:
     build:
       context: ./backend
       target: http-server
     env_file: ./backend/.env
+    entrypoint: ls ../common/node_modules
     ports:
       - "4000:4000"
     healthcheck:

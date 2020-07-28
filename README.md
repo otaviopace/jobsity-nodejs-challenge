@@ -6,6 +6,7 @@ Jobsity's Node.js Code Challenge.
 
 - [Installation](#installation)
 - [Running](#running)
+- [Tests](#tests)
 - [Features](#features)
 - [Architecture](#architecture)
 
@@ -66,6 +67,16 @@ make run-frontend
 ```
 
 It should be listening on `http://localhost:3000`.
+
+## Tests
+
+To run tests just use:
+
+```shell
+make common-test
+make http-server-test
+make web-socket-test
+```
 
 ## Features
 
